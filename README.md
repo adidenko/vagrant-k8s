@@ -71,11 +71,13 @@ cd ~/mcp
 ./deploy-k8s.kargo.sh
 ```
 
-* Make sure CCP config matches your deployment environmant
+* Make sure CCP deployment configs/scripts match your deployment environment
+and update if needed
 
 ```bash
 cd ~/mcp
 cat ccp/deploy-config.yaml
+cat ccp/label-nodes.sh
 ```
 
 * Deploy OpenStack CCP
