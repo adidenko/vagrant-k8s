@@ -14,7 +14,7 @@ Requirements
 Vargant lab preparation
 -----------------------
 
-* Change default IP pool for vagrant networks if you want:
+* Change default IP pool for vagrant networks if you want
 
 ```bash
 export VAGRANT_POOL="10.100.0.0/16"
@@ -27,7 +27,7 @@ git clone https://github.com/adidenko/vagrant-k8s
 cd vagrant-k8s
 ```
 
-* Prepare the virtual lab:
+* Prepare the virtual lab
 
 ```bash
 vagrant up
@@ -36,7 +36,7 @@ vagrant up
 Deployment on a lab
 -------------------
 
-* Login to master node and sudo to root:
+* Login to master node and sudo to root
 
 ```bash
 vagrant ssh $USER-k8s-00
@@ -49,7 +49,7 @@ sudo su -
 git clone https://github.com/adidenko/vagrant-k8s ~/mcp
 ```
 
-* Install required software and pull needed repos:
+* Install required software and pull needed repos
 
 ```bash
 cd ~/mcp
@@ -71,7 +71,14 @@ cd ~/mcp
 ./deploy-k8s.kargo.sh
 ```
 
-* Deploy OpenStack CCP:
+* Make sure CCP config matches your deployment environmant
+
+```bash
+cd ~/mcp
+cat ccp/deploy-config.yaml
+```
+
+* Deploy OpenStack CCP
 
 ```bash
 cd ~/mcp
@@ -92,7 +99,7 @@ kubectl --namespace=openstack get pods -o wide
 kubectl --namespace=openstack get jobs
 ```
 
-* Check Horizon:
+* Check Horizon
 
 ```bash
 # On k8s master node check nodePort of Horizon service
@@ -106,7 +113,7 @@ curl -i -s $ANY_K8S_NODE_IP:$HORIZON_PORT
 Working with kubernetes
 -----------------------
 
-* Login to one of your kube-master nodes and run:
+* Login to one of your kube-master nodes and run
 
 ```bash
 # List images in registry
