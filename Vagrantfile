@@ -16,7 +16,8 @@ $user = ENV["USER"]
 $public_subnet = prefix.to_s + ".0"
 $private_subnet = prefix.to_s + ".1"
 $mgmt_cidr = prefix.to_s + ".2.0/24"
-$neutron_subnet = "172.30.250"
+oct = pool.split('.')
+$neutron_subnet = "172.30.#{oct[1]}"
 
 $instance_name_prefix = "#{$user}-k8s"
 
