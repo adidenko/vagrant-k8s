@@ -9,4 +9,4 @@ subsets:
     - ip: "10.210.1.13"
     ports:
       - port: 2379
-        name: "2379"
+        name: "etcd-k8s"

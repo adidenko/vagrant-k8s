@@ -4,10 +4,9 @@ metadata:
   name: etcd-k8s
 spec:
   ports:
-  - name: "2379"
+  - name: "etcd-k8s"
     port: 2379
     protocol: TCP
-    targetPort: 2379
   sessionAffinity: None
   type: NodePort
 status:
