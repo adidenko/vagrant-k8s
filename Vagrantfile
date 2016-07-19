@@ -25,7 +25,8 @@ $instance_name_prefix = "#{$user}-k8s"
 #$box = "yk0/ubuntu-xenial" #900M
 #$box = "centos/7"
 #$box = "nrclark/xenial64-minimal-libvirt"
-$box = "peru/ubuntu-16.04-server-amd64"
+#$box = "peru/ubuntu-16.04-server-amd64"
+$box = "adidenko/ubuntu-1604-k8s"
 
 # Create SSH keys for future lab
 system 'bash vagrant-scripts/ssh-keygen.sh'
