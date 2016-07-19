@@ -1,0 +1,12 @@
+kind: "Endpoints"
+apiVersion: "v1"
+metadata:
+  name: "etcd-k8s"
+subsets:
+  - addresses:
+    - ip: "10.210.1.11"
+    - ip: "10.210.1.12"
+    - ip: "10.210.1.13"
+    ports:
+      - port: 2379
+        name: "2379"
