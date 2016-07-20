@@ -26,9 +26,13 @@ nova aggregate-add-host n2 $node2
 nova aggregate-create n3 n3
 nova aggregate-add-host n3 $node3
 
-# Network
+# Networks with ovs
 neutron net-create net1 --provider:network-type vxlan
 neutron subnet-create net1 172.20.0.0/24 --name subnet1
+
+# Networks with calico
+neutron net-create --shared --provider:network_type local net1
+neutron subnet-create --gateway 10.65.0.1 --enable-dhcp --ip-version 4 --name subnet1 net1 10.65.0.0/24
 
 # Instances
 net_id=`neutron net-list | grep net1 | awk '{print $2}'`
