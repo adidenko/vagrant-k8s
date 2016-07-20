@@ -95,17 +95,17 @@ ansible-playbook -i nodes_to_inv.py playbooks/ccp-deploy.yaml
 ```bash
 # On k8s master node
 # Check CCP pods, all should become running
-kubectl --namespace=openstack get pods -o wide
+kubectl --namespace=ccp get pods -o wide
 
 # Check CCP jobs status, wait until all complete
-kubectl --namespace=openstack get jobs
+kubectl --namespace=ccp get jobs
 ```
 
 * Check Horizon
 
 ```bash
 # On k8s master node check nodePort of Horizon service
-HORIZON_PORT=$(kubectl --namespace=openstack get svc/horizon -o go-template='{{(index .spec.ports 0).nodePort}}')
+HORIZON_PORT=$(kubectl --namespace=ccp get svc/horizon -o go-template='{{(index .spec.ports 0).nodePort}}')
 echo $HORIZON_PORT
 
 # Access Horizon via nodePort
@@ -122,21 +122,21 @@ Working with kubernetes
 curl -s 127.0.0.1:31500/v2/_catalog | python -mjson.tool
 
 # Check CCP jobs status
-kubectl --namespace=openstack get jobs
+kubectl --namespace=ccp get jobs
 
 # Check CCP pods
-kubectl --namespace=openstack get pods -o wide
+kubectl --namespace=ccp get pods -o wide
 ```
 
 * Troubleshooting
 
 ```bash
 # Get logs from pod
-kubectl --namespace=openstack logs $POD_NAME
+kubectl --namespace=ccp logs $POD_NAME
 
 # Exec command from pod
-kubectl --namespace=openstack exec $POD_NAME -- cat /etc/resolv.conf
-kubectl --namespace=openstack exec $POD_NAME -- curl http://etcd-client:2379/health
+kubectl --namespace=ccp exec $POD_NAME -- cat /etc/resolv.conf
+kubectl --namespace=ccp exec $POD_NAME -- curl http://etcd-client:2379/health
 
 # Run a container
 docker run -t -i 127.0.0.1:31500/mcp/neutron-dhcp-agent /bin/bash
@@ -147,8 +147,8 @@ docker run -t -i 127.0.0.1:31500/mcp/neutron-dhcp-agent /bin/bash
 ```bash
 cd ~/mcp
 ./deploy-netchecker.sh
-# or in openstack namespace
-./deploy-netchecker.sh openstack
+# or in ccp namespace
+./deploy-netchecker.sh ccp
 ```
 
 * CCP

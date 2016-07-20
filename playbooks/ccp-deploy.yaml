@@ -24,4 +24,4 @@
       args:
         chdir: /root/ccp
       run_once: true
-      when: get_ns.stdout.find('openstack') == -1
+      when: get_ns.stdout.find('ccp') == -1
