@@ -20,3 +20,7 @@ cp -a /var/tmp/microservices* ./ccp/ || touch /var/tmp/ccp-download
 
 # Pull kargo
 git clone https://github.com/kubespray/kargo ~/kargo
+cd ~/kargo
+
+# Kargo master is broken
+git checkout 0f246bfba4748367ed5c3af2e73de55f9ce7ca88
