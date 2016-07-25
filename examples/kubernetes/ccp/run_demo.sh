@@ -15,7 +15,7 @@ chmod 600 test.pem
 nova flavor-create demo --is-public true auto 128 2 1
 
 # Image
-curl -O http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+test -f cirros-0.3.4-x86_64-disk.img || curl -O http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
 glance image-create --name cirros --disk-format qcow2 --container-format bare --file cirros-0.3.4-x86_64-disk.img
 
 # Aggregates

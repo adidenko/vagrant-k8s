@@ -90,7 +90,7 @@ ansible-playbook -i nodes_to_inv.py playbooks/ccp-build.yaml
 ansible-playbook -i nodes_to_inv.py playbooks/ccp-deploy.yaml
 ```
 
-* Wait for CCP deployment to complete
+* Login to any *k8s master* node and wait for CCP deployment to complete
 
 ```bash
 # On k8s master node
