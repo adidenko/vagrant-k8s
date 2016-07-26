@@ -11,3 +11,5 @@ upstream_dns_servers:
   - 8.8.8.8
   - 8.8.4.4
   - /mirantis.net/172.18.32.6
+# Workaround etcd timeouts
+etcd_deployment_type: host
