@@ -49,13 +49,21 @@
       shell: mcp-microservices --config-file=/root/ccp/ccp.conf fetch
       run_once: true
 
-#    - name: Patch fuel-ccp-neutron
-#      run_once: true
-#      args:
-#        chdir: /root/microservices-repos/fuel-ccp-neutron
-#      shell: git fetch https://git.openstack.org/openstack/fuel-ccp-neutron {{ item }} && git cherry-pick FETCH_HEAD
-#      with_items:
-#        - "refs/changes/96/340496/6"
+    - name: Patch fuel-ccp-neutron
+      run_once: true
+      args:
+        chdir: /root/microservices-repos/fuel-ccp-neutron
+      shell: git fetch https://git.openstack.org/openstack/fuel-ccp-neutron {{ item }} && git cherry-pick FETCH_HEAD
+      with_items:
+        - "refs/changes/89/345489/9"
+
+    - name: Patch fuel-ccp-nova
+      run_once: true
+      args:
+        chdir: /root/microservices-repos/fuel-ccp-nova
+      shell: git fetch https://git.openstack.org/openstack/fuel-ccp-nova {{ item }} && git cherry-pick FETCH_HEAD
+      with_items:
+        - "refs/changes/82/346882/3"
 
     - name: Build CCP images
       shell: mcp-microservices --config-file=/root/ccp/ccp.conf build
@@ -66,4 +74,4 @@
   tasks:
 
     - name: Check number of built images
-      shell: test $(curl -s 127.0.0.1:31500/v2/_catalog | python -mjson.tool | grep mcp/ | wc -l) -ge 29
+      shell: test $(curl -s 127.0.0.1:31500/v2/_catalog | python -mjson.tool | grep mcp/ | wc -l) -ge 38
