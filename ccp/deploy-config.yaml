@@ -3,4 +3,4 @@ configs:
   private_interface: "eth2"
   neutron_external_interface: "eth3"
   neutron_logging_debug: "true"
-  neutron_plugin_agent: "openvswitch"
+  neutron_plugin_agent: "calico"

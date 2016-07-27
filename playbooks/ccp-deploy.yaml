@@ -19,6 +19,15 @@
       register: get_ns
       run_once: true
 
+    - name: Delete unneeded neutron services
+      file: path="/root/microservices-repos/fuel-ccp-neutron/service/{{ item }}" state=absent
+      with_items:
+        - 'neutron-dhcp-agent.yaml'
+        - 'neutron-l3-agent.yaml'
+        - 'neutron-openvswitch-agent.yaml'
+        - 'openvswitch-db.yaml'
+        - 'openvswitch-vswitchd.yaml'
+
     - name: Deploy CCP
       shell: mcp-microservices --config-file=/root/ccp/ccp.conf deploy
       args:
