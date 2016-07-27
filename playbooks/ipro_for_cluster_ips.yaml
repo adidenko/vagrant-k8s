@@ -1,4 +1,4 @@
-# FXIME: add persistent routing rule
+# FIXME: add persistent routing rule
 - hosts: kube-master
   tasks:
 
