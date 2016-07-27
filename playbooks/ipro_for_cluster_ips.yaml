@@ -3,7 +3,7 @@
   tasks:
 
     - name: Get kube service net
-      shell: grep KUBE_SERVICE_ADDRESSES /etc/kubernetes/kube-apiserver.env | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}\b"
+      shell: grep service-cluster-ip-range /etc/kubernetes/manifests/kube-apiserver.manifest | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}\b"
       register: kube_service_addresses
       run_once: true
 
