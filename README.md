@@ -80,7 +80,6 @@ and update if needed
 ```bash
 cd ~/mcp
 cat ccp/deploy-config.yaml
-cat ccp/label-nodes.sh
 ```
 
 * Deploy OpenStack CCP

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+KARGO_COMMIT='aa0d7ea5d0e9f23598d6ddf238465e3fe4c7b898'
+
 # Packages
 apt-get --yes update
 apt-get --yes upgrade
@@ -14,6 +16,7 @@ ansible --version || (
 
 # Copy/create nodes list
 test -f ./nodes || cp /var/tmp/nodes ./nodes
+test -f ./nodes && echo 'for i in `cat nodes`; do screen -t $i ssh $i; done' > ./screen.sh
 
 # Either pull or copy microservices repos
 cp -a /var/tmp/microservices* ./ccp/ || touch /var/tmp/ccp-download
@@ -22,5 +25,7 @@ cp -a /var/tmp/microservices* ./ccp/ || touch /var/tmp/ccp-download
 git clone https://github.com/kubespray/kargo ~/kargo
 cd ~/kargo
 
-# Kargo master is broken
-git checkout 0f246bfba4748367ed5c3af2e73de55f9ce7ca88
+# Checkout to kargo commit
+if [ -n "$KARGO_COMMIT" ] ; then
+  git checkout $KARGO_COMMIT
+fi

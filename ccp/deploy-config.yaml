@@ -4,3 +4,36 @@ configs:
   neutron_external_interface: "eth3"
   neutron_logging_debug: "true"
   neutron_plugin_agent: "calico"
+
+nodes:
+  node1:
+    roles:
+      - controller
+  node[2-3]:
+    roles:
+      - compute
+      - calico
+
+roles:
+  controller:
+    - etcd
+    - glance-api
+    - glance-registry
+    - horizon
+    - keystone
+    - mariadb
+    - memcached
+    - neutron-metadata-agent
+    - neutron-server
+    - nova-api
+    - nova-conductor
+    - nova-consoleauth
+    - nova-novncproxy
+    - nova-scheduler
+    - rabbitmq
+  compute:
+    - nova-compute
+    - nova-libvirt
+  calico:
+    - calico-dhcp-agent
+    - calico-felix
