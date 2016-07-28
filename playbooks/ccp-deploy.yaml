@@ -8,25 +8,11 @@
         dest: /root/ccp/
 
   tasks:
-    - name: Label nodes
-      shell: ./label-nodes.sh
-      args:
-        chdir: /root/ccp
-      run_once: true
 
     - name: Get namespaces
       shell: kubectl get namespace
       register: get_ns
       run_once: true
-
-#    - name: Delete unneeded neutron services
-#      file: path="/root/microservices-repos/fuel-ccp-neutron/service/{{ item }}" state=absent
-#      with_items:
-#        - 'neutron-dhcp-agent.yaml'
-#        - 'neutron-l3-agent.yaml'
-#        - 'neutron-openvswitch-agent.yaml'
-#        - 'openvswitch-db.yaml'
-#        - 'openvswitch-vswitchd.yaml'
 
     - name: Deploy CCP
       shell: ccp --config-file=/root/ccp/ccp.conf deploy

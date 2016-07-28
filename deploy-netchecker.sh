@@ -25,9 +25,7 @@ pushd netchecker-agent
     docker push 127.0.0.1:31500/netchecker/agent:latest
   popd
   kubectl get nodes | grep Ready | awk '{print $1}' | xargs -I {} kubectl label nodes {} netchecker=agent
-  NUMNODES=`kubectl get nodes --show-labels | grep Ready | grep netchecker=agent | wc -l`
-  sed -e "s/replicas:.*/replicas: $NUMNODES/g" -i netchecker-agent_rc.yaml
-  kubectl create -f netchecker-agent_rc.yaml $NS
+  kubectl create -f netchecker-agent.yaml $NS
 popd
 
 echo "DONE"
