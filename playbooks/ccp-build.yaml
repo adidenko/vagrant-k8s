@@ -6,7 +6,7 @@
       git:
         repo: https://git.openstack.org/openstack/fuel-ccp
         dest: /usr/local/src/fuel-ccp
-        version: adfba243e7e02b086c07f061915affa9afa5eb60
+        version: 7714d06cf94099f39ebabc44b4f0de0ee6eda099
 
     - name: Upload ccp configs to master nodes
       synchronize:
