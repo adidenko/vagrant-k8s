@@ -1,7 +1,7 @@
 # Kubernetes version
-kube_version: "v1.2.6"
+kube_version: "v1.2.4"
 hyperkube_image_repo: "quay.io/coreos/hyperkube"
-hyperkube_image_tag: "v1.2.6_coreos.0"
+hyperkube_image_tag: "v1.2.4_coreos.0"
 # Switch network to calico
 kube_network_plugin: "calico"
 # Kube-proxy should be iptables for calico
