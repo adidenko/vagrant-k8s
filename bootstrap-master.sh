@@ -16,6 +16,7 @@ ansible --version || (
 
 # Copy/create nodes list
 test -f ./nodes || cp /var/tmp/nodes ./nodes
+test -f ./nodes && echo 'for i in `cat nodes`; do screen -t $i ssh $i; done' > ./screen.sh
 
 # Either pull or copy microservices repos
 cp -a /var/tmp/microservices* ./ccp/ || touch /var/tmp/ccp-download

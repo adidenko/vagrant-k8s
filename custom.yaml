@@ -15,5 +15,3 @@ upstream_dns_servers:
   - /mirantis.net/172.18.32.6
 # Workaround etcd timeouts
 etcd_deployment_type: host
-# Other params
-cloud_provider: "generic"
