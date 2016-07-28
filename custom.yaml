@@ -1,5 +1,7 @@
 # Kubernetes version
-kube_version: "v1.2.4"
+kube_version: "v1.2.6"
+hyperkube_image_repo: "quay.io/coreos/hyperkube"
+hyperkube_image_tag: "v1.2.6_coreos.0"
 # Switch network to calico
 kube_network_plugin: "calico"
 # Kube-proxy should be iptables for calico
@@ -13,3 +15,5 @@ upstream_dns_servers:
   - /mirantis.net/172.18.32.6
 # Workaround etcd timeouts
 etcd_deployment_type: host
+# Other params
+cloud_provider: "generic"
