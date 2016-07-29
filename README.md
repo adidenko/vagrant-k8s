@@ -36,8 +36,8 @@ cd vagrant-k8s
 vagrant up
 ```
 
-Deployment on a lab
--------------------
+Deployment Kubernetes on your lab
+---------------------------------
 
 * Login to master node and sudo to root
 
@@ -59,12 +59,19 @@ cd ~/mcp
 ./bootstrap-master.sh
 ```
 
+* Set env vars for dynamic inventory
+
+```bash
+export INVENTORY=`pwd`/nodes_to_inv.py
+export K8S_NODES_FILE=`pwd`/nodes
+```
+
 * Check `nodes` list and make sure you have SSH access to them
 
 ```bash
 cd ~/mcp
 cat nodes
-ansible all -m ping -i nodes_to_inv.py
+ansible all -m ping -i $INVENTORY
 ```
 
 * Deploy k8s using kargo playbooks
@@ -74,12 +81,22 @@ cd ~/mcp
 ./deploy-k8s.kargo.sh
 ```
 
-* Make sure CCP deployment configs/scripts match your deployment environment
-and update if needed
+Deploy CCP on Kubernetes
+------------------------
+
+* Make sure CCP deployment config matches your deployment environment
+and update if needed. You can also add you CCP reviews here
 
 ```bash
 cd ~/mcp
-cat ccp/deploy-config.yaml
+cat ccp.yaml
+```
+
+* Clone CCP installer
+
+```bash
+cd ~/mcp
+git clone https://github.com/adidenko/fuel-ccp-ansible
 ```
 
 * Deploy OpenStack CCP
@@ -87,12 +104,12 @@ cat ccp/deploy-config.yaml
 ```bash
 cd ~/mcp
 # Build CCP images
-ansible-playbook -i nodes_to_inv.py playbooks/ccp-build.yaml
+ansible-playbook -i $INVENTORY fuel-ccp-ansible/build.yaml -e @ccp.yaml
 # Deploy CCP
-ansible-playbook -i nodes_to_inv.py playbooks/ccp-deploy.yaml
+ansible-playbook -i $INVENTORY fuel-ccp-ansible/deploy.yaml -e @ccp.yaml
 ```
 
-* Login to any *k8s master* node and wait for CCP deployment to complete
+* Login to any **k8s master** node and wait for CCP deployment to complete
 
 ```bash
 # On k8s master node
