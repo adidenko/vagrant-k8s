@@ -1,3 +1,4 @@
+ccp_commit: 7714d06cf94099f39ebabc44b4f0de0ee6eda099
 ccp_neutron_plugin_agent: "calico"
 ccp_neutron_logging_debug: "true"
 ccp_num_images: 38
