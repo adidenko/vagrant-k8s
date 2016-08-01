@@ -27,8 +27,8 @@ nova aggregate-create n3 n3
 nova aggregate-add-host n3 $node3
 
 # Networks with ovs
-neutron net-create net1 --provider:network-type vxlan
-neutron subnet-create net1 172.20.0.0/24 --name subnet1
+#neutron net-create net1 --provider:network-type vxlan
+#neutron subnet-create net1 172.20.0.0/24 --name subnet1
 
 # Networks with calico
 neutron net-create --shared --provider:network_type local net1
