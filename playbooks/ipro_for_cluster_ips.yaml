@@ -34,6 +34,5 @@
       shell: sed '/^search / s/$/ {{ item }}/' -i /etc/resolv.conf
       when: resolv_conf.stdout.find('{{ item }}') == -1
       with_items:
-        - "ccp.svc.cluster.local"
         - "kube-system.svc.cluster.local"
 
