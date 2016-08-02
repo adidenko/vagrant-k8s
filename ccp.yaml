@@ -3,6 +3,6 @@ ccp_neutron_logging_debug: "true"
 ccp_num_images: 38
 ccp_gerrit_reviews:
   - repo: "fuel-ccp-neutron"
-    refspec: "refs/changes/89/345489/10"
+    refspec: "refs/changes/89/345489/11"
   - repo: "fuel-ccp-nova"
     refspec: "refs/changes/82/346882/4"
