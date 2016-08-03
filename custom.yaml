@@ -4,6 +4,7 @@ hyperkube_image_tag: "v1.2.6_coreos.0"
 kube_version: "v1.2.6"
 # Switch network to calico
 kube_network_plugin: "calico"
+#calico_version: "0.20.0"
 # Kube-proxy should be iptables for calico
 kube_proxy_mode: "iptables"
 # Use non-tmpfs tmp dir
