@@ -1,5 +1,5 @@
 # This script should be executed inside k8s:
-# docker run -t -i 127.0.0.1:31500/mcp/nova-base /bin/bash
+# docker run -t -i 127.0.0.1:31500/ccp/nova-base /bin/bash
 
 export OS_USERNAME=admin
 export OS_PASSWORD=password
