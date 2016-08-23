@@ -5,7 +5,7 @@ kube_version: "v1.3.5"
 
 # Switch network to calico
 kube_network_plugin: "calico"
-calico_version: "0.20.0"
+calico_version: "v0.20.0"
 calico_cni_version: "v1.3.1"
 
 # Kube-proxy should be iptables for calico
