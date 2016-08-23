@@ -38,3 +38,11 @@ neutron subnet-create --gateway 10.65.0.1 --enable-dhcp --ip-version 4 --name su
 net_id=`neutron net-list | grep net1 | awk '{print $2}'`
 nova boot ti02 --image cirros --flavor demo --nic net-id=$net_id --key-name test --availability-zone n2
 nova boot ti03 --image cirros --flavor demo --nic net-id=$net_id --key-name test --availability-zone n3
+
+# Security groups
+nova secgroup-create allowall "Allow all"
+nova secgroup-add-rule allowall tcp 1 65535 0.0.0.0/0
+nova secgroup-add-rule allowall icmp -1 -1 0.0.0.0/0
+
+nova add-secgroup ti02 allowall
+nova add-secgroup ti03 allowall
