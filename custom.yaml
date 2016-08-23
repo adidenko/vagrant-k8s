@@ -2,8 +2,6 @@
 docker_version: 1.11
 
 # Kubernetes version
-hyperkube_image_repo: "quay.io/coreos/hyperkube"
-hyperkube_image_tag: "v1.2.6_coreos.0"
 kube_version: "v1.3.5"
 
 # Switch network to calico
