@@ -1,18 +1,37 @@
 # Kubernetes version
 hyperkube_image_repo: "quay.io/coreos/hyperkube"
 hyperkube_image_tag: "v1.2.6_coreos.0"
-kube_version: "v1.2.6"
+kube_version: "v1.3.5"
+
 # Switch network to calico
 kube_network_plugin: "calico"
-#calico_version: "0.20.0"
+calico_version: "0.20.0"
+calico_cni_version: "v1.3.1"
+
 # Kube-proxy should be iptables for calico
 kube_proxy_mode: "iptables"
+
 # Use non-tmpfs tmp dir
 local_release_dir: "/var/tmp/releases"
+
 # Upstream DNS servers with mirantis.net
 upstream_dns_servers:
   - 8.8.8.8
   - 8.8.4.4
   - /mirantis.net/172.18.32.6
-# Workaround etcd timeouts
-etcd_deployment_type: host
+
+#Override hyperkube image to use CoreOS v1.3.5
+hyperkube_image_repo: "quay.io/coreos/hyperkube"
+hyperkube_image_tag: "v1.3.5_coreos.0"
+
+#Required for hyperkube >=1.3.4. Set to false if installing old hyperkube
+use_hyperkube_cni: true
+
+# Versions from kargo commit 4fb4ac120b9433109924b17701e822dde0d39fbf
+etcd_version: "v3.0.1"
+
+# Custom (additional) DNS settings
+searchdomains:
+  - ccp.svc.cluster.local
+nameservers:
+  - 8.8.8.8
