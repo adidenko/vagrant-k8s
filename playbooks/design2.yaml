@@ -1,0 +1,10 @@
+- hosts: kube-master
+  tasks:
+    - name: sync files
+      synchronize: src=../ccp/ dest=/root/ccp/
+    - name: setup-etcd-to-pods-proxy
+      shell: kubectl --namespace=ccp create -f /root/ccp/etcd-k8s-svc.yaml
+      run_once: true
+    - name: enable felix reporting
+      shell: etcdctl set /calico/v1/config/ReportingIntervalSecs 60
+      run_once: true

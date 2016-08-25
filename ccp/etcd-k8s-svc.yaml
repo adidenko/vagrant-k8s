@@ -1,7 +1,20 @@
-apiVersion: v1
-kind: Service
+kind: "Endpoints"
+apiVersion: "v1"
 metadata:
-  name: etcd-k8s
+  name: "etcd-k8s"
+subsets:
+  - addresses:
+    - ip: "10.210.1.11"
+    - ip: "10.210.1.12"
+    - ip: "10.210.1.13"
+    ports:
+      - port: 2379
+        name: "etcd-k8s"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "etcd-k8s"
 spec:
   ports:
   - name: "etcd-k8s"
