@@ -1,0 +1,26 @@
+kind: "Endpoints"
+apiVersion: "v1"
+metadata:
+  name: "etcd-k8s"
+subsets:
+  - addresses:
+{% for host in groups['etcd'] %}
+    - ip: "{{ hostvars[host]['ip'] }}"
+{% endfor %}
+    ports:
+      - port: 2379
+        name: "etcd-k8s"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "etcd-k8s"
+spec:
+  ports:
+  - name: "etcd-k8s"
+    port: 2379
+    protocol: TCP
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
