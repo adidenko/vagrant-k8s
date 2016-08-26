@@ -4,8 +4,8 @@ KARGO_COMMIT='92c4428cfd7157a60a51b04a45599a13d3b14b70'
 
 # Packages
 apt-get --yes update
-apt-get --yes upgrade
-apt-get --yes install git screen vim telnet tcpdump python-setuptools gcc python-dev python-pip libssl-dev libffi-dev software-properties-common curl python-netaddr
+apt-get --yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+apt-get --yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install git screen vim telnet tcpdump python-setuptools gcc python-dev python-pip libssl-dev libffi-dev software-properties-common curl python-netaddr
 
 # Get ansible-2.1+, vanilla ubuntu-16.04 ansible (2.0.0.2) is broken due to https://github.com/ansible/ansible/issues/13876
 ansible --version || (
