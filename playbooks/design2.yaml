@@ -4,7 +4,7 @@
       template: src=./etcd-k8s-svc.j2 dest=/var/tmp/etcd-k8s-svc.yaml
       run_once: true
     - name: setup-etcd-to-pods-proxy
-      shell: kubectl --namespace=ccp create -f /var/tmp/etcd-k8s-svc.yaml
+      shell: kubectl --namespace=default create -f /var/tmp/etcd-k8s-svc.yaml
       run_once: true
     - name: enable felix reporting
       shell: etcdctl set /calico/v1/config/ReportingIntervalSecs 60
