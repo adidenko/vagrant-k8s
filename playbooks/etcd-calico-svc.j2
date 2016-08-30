@@ -1,7 +1,7 @@
 kind: "Endpoints"
 apiVersion: "v1"
 metadata:
-  name: "etcd-k8s"
+  name: "etcd-calico"
 subsets:
   - addresses:
 {% for host in groups['etcd'] %}
@@ -9,15 +9,15 @@ subsets:
 {% endfor %}
     ports:
       - port: 2379
-        name: "etcd-k8s"
+        name: "etcd-calico"
 ---
 apiVersion: "v1"
 kind: "Service"
 metadata:
-  name: "etcd-k8s"
+  name: "etcd-calico"
 spec:
   ports:
-  - name: "etcd-k8s"
+  - name: "etcd-calico"
     port: 2379
     protocol: TCP
   sessionAffinity: None
