@@ -97,7 +97,7 @@ cat ccp.yaml
 * Run some extra customizations
 
 ```bash
-ansible-playbook -i $INVENTORY playbooks/design2.yaml
+ansible-playbook -i $INVENTORY playbooks/design.yaml -e @ccp.yaml
 ```
 
 * Clone CCP installer

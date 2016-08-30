@@ -3,10 +3,22 @@ ccp_neutron_logging_debug: "true"
 ccp_num_images: 38
 ccp_gerrit_reviews:
   - repo: "fuel-ccp-neutron"
-    refspec: "refs/changes/89/345489/26"
-calico_services:
-  - calico-dhcp-agent
+    refspec: "refs/changes/89/345489/27"
 
 # Set ccp_redeploy to true if you want playbooks to automatically remove
 # kubernetes CCP namespace and re-deploy it from the scratch.
 ccp_redeploy: true
+
+# WARNING!!! Architecture specific settings.
+# If you want to run separate ccp-felix and connect CCP calico components
+# to ccp/etcd cluster, then please comment out calico_services and
+# ccp_calico_etcd_host setting below.
+# See img/k8s-ccp-calico-01.png
+#
+# If you want to connect CCP calico components (dhcp-agent and ml2) to the
+# main etcd cluster that is used by calico/node and avoid felix service
+# duplication, then you can leave these settings uncommented.
+# See img/k8s-ccp-calico-02.png
+calico_services:
+  - calico-dhcp-agent
+ccp_calico_etcd_host: "etcd-calico"
