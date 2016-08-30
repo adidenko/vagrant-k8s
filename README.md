@@ -6,6 +6,8 @@ Scripts to:
 * Deploy Kubernetes with Calico networking plugin on a list of nodes using Kargo.
 * Deploy OpenStack Containerized Control Plane (fuel-ccp) with networking-calico on top of k8s.
 
+![Deployment scheme](img/k8s-ccp-calico-01.png)
+
 Requirements
 ------------
 
