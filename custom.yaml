@@ -8,7 +8,10 @@ kube_version: "v1.3.5"
 kube_network_plugin: "calico"
 calico_version: "v0.20.0"
 calico_cni_version: "v1.3.1"
-calico_node_image_repo: "artifactory.mcp.mirantis.net:5004/calico/node"
+# For Mirantis users
+#calico_node_image_repo: "artifactory.mcp.mirantis.net:5004/calico/node"
+# For others
+calico_node_image_repo: "docker.io/l23network/node"
 
 # Kube-proxy should be iptables for calico
 kube_proxy_mode: "iptables"
