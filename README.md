@@ -52,6 +52,9 @@ sudo su -
 
 ```bash
 git clone https://github.com/adidenko/vagrant-k8s ~/mcp
+cd ~/mcp
+git fetch
+git checkout -b design1 origin/design1
 ```
 
 * Install required software and pull needed repos
