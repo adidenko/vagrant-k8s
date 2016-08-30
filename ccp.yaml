@@ -4,3 +4,5 @@ ccp_num_images: 38
 ccp_gerrit_reviews:
   - repo: "fuel-ccp-neutron"
     refspec: "refs/changes/89/345489/23"
+calico_services:
+  - calico-dhcp-agent

@@ -92,6 +92,12 @@ cd ~/mcp
 cat ccp.yaml
 ```
 
+* Run some extra customizations
+
+```bash
+ansible-playbook -i $INVENTORY playbooks/design2.yaml
+```
+
 * Clone CCP installer
 
 ```bash
