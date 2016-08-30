@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KARGO_COMMIT='92c4428cfd7157a60a51b04a45599a13d3b14b70'
+KARGO_COMMIT='54885711087a084d22f89c677a6932abc70f5ca9'
 
 # Packages
 apt-get --yes update
