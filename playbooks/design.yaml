@@ -5,15 +5,15 @@
       template: src=./etcd-calico-svc.j2 dest=/var/tmp/etcd-calico-svc.yaml
       run_once: true
 
-    - name: Get pods
-      shell: kubectl get pods --namespace=default
-      register: get_pod
+    - name: Get svc
+      shell: kubectl get svc --namespace=default
+      register: get_svc
       run_once: true
 
     - name: setup-etcd-to-pods-proxy
       shell: kubectl --namespace=default create -f /var/tmp/etcd-calico-svc.yaml
       run_once: true
-      when: get_pod.stdout.find('etcd-calico') == -1
+      when: get_svc.stdout.find('etcd-calico') == -1
 
     - name: enable felix reporting
       shell: etcdctl set /calico/v1/config/ReportingIntervalSecs 60
