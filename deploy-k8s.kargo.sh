@@ -16,6 +16,4 @@ if [ "$deploy_res" -eq "0" ]; then
   ansible-playbook -i $INVENTORY playbooks/kubedashboard.yaml
   echo "Setting up ip route work-around for DNS clusterIP availability..."
   ansible-playbook -i $INVENTORY playbooks/ipro_for_cluster_ips.yaml
-  echo "Setting up etcd-calico proxy svc and enabling felix reporting if needed..."
-  ansible-playbook -i $INVENTORY playbooks/design.yaml -e @ccp.yaml
 fi
