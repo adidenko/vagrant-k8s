@@ -1,7 +1,6 @@
 #!/bin/bash
 
-function type_cmd {
-    echo -n "$ " 1>&2
+function type_str {
     local str="$@"
     for ((i=0; i<${#str}; i++)); do
         echo -n "${str:$i:1}" 1>&2
@@ -10,8 +9,18 @@ function type_cmd {
     echo 1>&2
 }
 
+function type_msg {
+    echo -n "### " 1>&2
+    type_str "$@"
+}
+
+function type_cmd {
+    echo -n "$ " 1>&2
+    type_str "$@"
+}
+
 function run_cmd {
-    type_cmd $@
+    type_cmd "$@"
     eval $@
 }
 
