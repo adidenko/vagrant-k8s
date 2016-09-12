@@ -3,11 +3,11 @@
 set -o xtrace
 set -o nounset
 
-sudo calicoctl profile remove proj01-profile
-sudo calicoctl profile remove proj02-profile
-
 kubectl delete deployment nginx01
 kubectl delete deployment nginx02
+
+sudo calicoctl profile remove proj01-profile
+sudo calicoctl profile remove proj02-profile
 
 sudo docker run -ti --rm \
     --env-file=credentials \
