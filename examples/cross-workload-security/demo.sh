@@ -68,7 +68,7 @@ type_msg "Creating new calico security profiles to perform isolation between " \
 run_cmd sudo calicoctl profile add proj01-profile
 run_cmd sudo calicoctl profile proj01-profile tag add "$sg01_id"
 type_msg "New profile will share the same tag '$sg01_id' with openstack's security group profile"
-run_cmd sudo calicoctl profile proj01-profile rule add inbound allow tcp from tag "$sg01_id"
+run_cmd sudo calicoctl profile proj01-profile rule add inbound allow from tag "$sg01_id"
 type_msg "Adding this profile to 'nginx01' endpoint..."
 run_cmd sudo calicoctl endpoint $pod01_endpoint profile append proj01-profile
 
@@ -76,8 +76,8 @@ run_cmd sudo calicoctl endpoint $pod01_endpoint profile append proj01-profile
 type_msg "Configuring security profile for second POD..."
 run_cmd sudo calicoctl profile add proj02-profile
 run_cmd sudo calicoctl profile proj02-profile tag add "$sg02_id"
-run_cmd sudo calicoctl profile proj02-profile rule add inbound allow tcp from tag "$sg02_id"
-run_cmd sudo calicoctl endpoint $pod02_endpoint profile remove proj02-profile
+run_cmd sudo calicoctl profile proj02-profile rule add inbound allow from tag "$sg02_id"
+run_cmd sudo calicoctl endpoint $pod02_endpoint profile append proj02-profile
 
 type_msg "Checking connectivity between 'vm01' and 'nginx01..."
 run_cmd sshpass -e ssh cirros@$vm01_ipaddr ping -c 3 $pod01_ipaddr || true
