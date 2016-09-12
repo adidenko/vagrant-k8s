@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# ----------------------------------------------------------------------------
+# Print functions
+# ----------------------------------------------------------------------------
+
 function type_str {
     local str="$@"
     for ((i=0; i<${#str}; i++)); do
@@ -10,11 +14,15 @@ function type_str {
 }
 
 function type_msg {
-    echo -n "### " 1>&2
-    type_str "$@"
+    echo -ne "\n\n" 1>&2
+    for line in "$@"; do
+        echo -n "### " 1>&2
+        type_str "$line"
+    done
 }
 
 function type_cmd {
+    echo 1>&2
     echo -n "$ " 1>&2
     type_str "$@"
 }
@@ -24,16 +32,28 @@ function run_cmd {
     eval $@
 }
 
+# ----------------------------------------------------------------------------
+# Common functions
+# ----------------------------------------------------------------------------
+
+function get_field {
+    local data field
+    field=$(($1 + 1))
+    while read data; do
+        echo "$data" | cut -d '|' -f "$field" | tr -d ' '
+    done
+}
+
 function get_tenant_id {
     local name="$1"
     openstack project list | grep "$name" | cut -d '|' -f 2 | tr -d ' ' 2>/dev/null
 }
 
-function get_vm_id {
+function get_vm_ipaddr {
     local name="$1"
-    nova list --all-tenants \
+    nova list \
         | grep "$name" \
-        | cut -f 8 -d '|' \
+        | get_field 6 \
         | cut -f 2 -d '=' 2>/dev/null
 }
 
@@ -44,17 +64,18 @@ function get_secgroup_id {
     neutron security-group-list -c id -c name -c tenant_id \
         | grep "$tenant_id" \
         | grep "$sg_name" \
-        | cut -f 2 -d '|' 2>/dev/null
+        | get_field 1 2>/dev/null
+
 }
 
 function wait_ssh {
     local host="$1"
     while ! sshpass -e ssh -q "cirros@$host" exit; do
-        type_cmd 'Waiting 30 seconds...'
+        echo 'Waiting 30 seconds...'
         sleep 30
-        type_cmd 'Trying again...'
+        echo 'Trying again...'
     done
-    type_cmd "SSH on VM $host is available"
+    echo "SSH on VM $host is available"
 }
 
 function get_calico_endpoint {
@@ -64,3 +85,4 @@ function get_calico_endpoint {
         | cut -f 5 -d '|' \
         | tr -d ' ' 2>/dev/null
 }
+
