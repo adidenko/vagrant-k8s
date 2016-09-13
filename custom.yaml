@@ -7,8 +7,8 @@ kube_version: "v1.3.5"
 # Switch network to calico
 kube_network_plugin: "calico"
 calico_version: "v0.20.0"
-calico_cni_ipam_download_url: "https://github.com/adidenko/vagrant-k8s/raw/master/bin/calico"
-calico_cni_ipam_checksum: "116bdacd9c7059ba86a41c7df403c57d"
+calico_cni_download_url: "https://github.com/adidenko/vagrant-k8s/raw/master/bin/calico"
+calico_cni_checksum: "1b3baddaf77cabcb8e839b68618e5e568391145b51ba16dcb06f1e363ee9825c"
 # For Mirantis users
 #calico_node_image_repo: "artifactory.mcp.mirantis.net:5004/calico/node"
 # For others
@@ -31,7 +31,7 @@ hyperkube_image_repo: "quay.io/coreos/hyperkube"
 hyperkube_image_tag: "v1.3.5_coreos.0"
 
 #Required for hyperkube >=1.3.4. Set to false if installing old hyperkube
-use_hyperkube_cni: true
+use_hyperkube_cni: false
 
 # Versions from kargo commit 4fb4ac120b9433109924b17701e822dde0d39fbf
 etcd_version: "v3.0.1"
