@@ -9,6 +9,7 @@ kube_network_plugin: "calico"
 calico_version: "v0.20.0"
 calico_cni_download_url: "https://github.com/adidenko/vagrant-k8s/raw/master/bin/calico"
 calico_cni_checksum: "1b3baddaf77cabcb8e839b68618e5e568391145b51ba16dcb06f1e363ee9825c"
+overwrite_cni: true
 # For Mirantis users
 #calico_node_image_repo: "artifactory.mcp.mirantis.net:5004/calico/node"
 # For others

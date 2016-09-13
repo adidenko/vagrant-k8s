@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KARGO_COMMIT='2e386dfbdc87cffef36844b84adad59a6a848dca'
+KARGO_COMMIT='custom-calico-over-hyperkube'
 
 # Packages
 apt-get --yes update
@@ -21,7 +21,9 @@ test -f ./nodes && echo 'for i in `cat nodes`; do screen -t $i ssh $i; done' > .
 cp -a /var/tmp/microservices* ./ccp/ || touch /var/tmp/ccp-download
 
 # Pull kargo
-git clone https://github.com/kubespray/kargo ~/kargo
+#git clone https://github.com/kubespray/kargo ~/kargo
+#cd ~/kargo
+git clone https://github.com/adidenko/kargo ~/kargo
 cd ~/kargo
 
 # Checkout to kargo commit
