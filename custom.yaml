@@ -7,7 +7,8 @@ kube_version: "v1.3.5"
 # Switch network to calico
 kube_network_plugin: "calico"
 calico_version: "v0.20.0"
-calico_cni_version: "v1.3.1"
+calico_cni_ipam_download_url: "https://github.com/adidenko/vagrant-k8s/raw/master/bin/calico"
+calico_cni_ipam_checksum: "116bdacd9c7059ba86a41c7df403c57d"
 # For Mirantis users
 #calico_node_image_repo: "artifactory.mcp.mirantis.net:5004/calico/node"
 # For others
