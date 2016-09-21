@@ -9,7 +9,7 @@
     - name: Deploy netchecker
       shell: "curl -s https://raw.githubusercontent.com/aateem/netchecker-server/new-deployment-script/utils/deploy_netchecker.sh | bash"
       run_once: true
-      when: get_pod.stdout.find('netchecker-service') == -1
+      when: get_svc.stdout.find('netchecker-service') == -1
 
 - hosts: all
   tasks:
