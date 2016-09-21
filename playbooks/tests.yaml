@@ -16,7 +16,7 @@
 
     - name: Test tunl0 routes
       shell: "! ip ro | grep '/26 via' | grep -v tunl0"
-      when: ipip
+      when: ipip|default(false)
 
 - hosts: kube-master
   tasks:
@@ -25,7 +25,7 @@
       uri: url=http://localhost:31081/api/v1/agents/ return_content=yes
       run_once: true
       register: agents
-      until: "{{ (agents.content|from_json|length) }} >= {{ groups['all']|length * 2}}"
+      until: "{{ (agents.content|from_json|length) }} >= {{ groups['all']|length * 2 }}"
       retries: 13
       delay: 5
 
