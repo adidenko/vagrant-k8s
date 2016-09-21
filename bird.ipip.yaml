@@ -18,6 +18,7 @@ overwrite_cni: true
 calico_node_image_repo: "artifactory.mcp.mirantis.net:5002/calico/node"
 calico_node_image_tag: "v0.20.0-f19f330"
 calicoctl_image_tag: "v0.20.0"
+ipip: true
 
 # Kube-proxy should be iptables for calico
 kube_proxy_mode: "iptables"
