@@ -5,8 +5,6 @@ set -x
 
 INVENTORY="nodes_to_inv.py"
 
-git clone https://github.com/adidenko/vagrant-k8s ~/mcp
-cd ~/mcp
 ./bootstrap-master.sh
 
 export INVENTORY=`pwd`/nodes_to_inv.py
