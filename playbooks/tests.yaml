@@ -1,3 +1,10 @@
+- hosts: all
+  tasks:
+
+    - name: Test tunl0 routes
+      shell: "! ip ro | grep '/26 via' | grep -v tunl0"
+      when: ipip|default(false)
+
 - hosts: kube-master
   tasks:
 
@@ -21,16 +28,6 @@
 
     - name: Sleep for 10 seconds
       pause: seconds=10
-
-- hosts: all
-  tasks:
-
-    - name: Test tunl0 routes
-      shell: "! ip ro | grep '/26 via' | grep -v tunl0"
-      when: ipip|default(false)
-
-- hosts: kube-master
-  tasks:
 
     - name: Wait for netchecker agents to report
       uri: url=http://localhost:31081/api/v1/agents/ return_content=yes
