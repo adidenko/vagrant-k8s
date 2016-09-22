@@ -18,8 +18,6 @@ ansible-playbook -i $INVENTORY playbooks/bootstrap-nodes.yaml
 echo "Running deployment..."
 ansible-playbook -i $INVENTORY /root/kargo/cluster.yml -e @bird.ipip.yaml &> /tmp/log1
 
-sleep 10
-
 echo "Running tests"
 ansible-playbook -i $INVENTORY playbooks/tests.yaml -e @bird.ipip.yaml
 
