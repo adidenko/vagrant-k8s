@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -xe
+
 INVENTORY="nodes_to_inv.py"
 
 echo "Installing requirements on nodes..."

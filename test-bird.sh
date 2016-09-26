@@ -3,10 +3,6 @@
 set -e
 set -x
 
-INVENTORY="nodes_to_inv.py"
-
-./bootstrap-master.sh
-
 export INVENTORY=`pwd`/nodes_to_inv.py
 export K8S_NODES_FILE=`pwd`/nodes
 
