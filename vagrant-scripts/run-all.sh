@@ -17,4 +17,16 @@ ansible all -m ping -i $INVENTORY
 # Deploy cluster
 bash -x deploy-k8s.kargo.sh
 
+# Run some extra customizations
+ansible-playbook -i $INVENTORY playbooks/design.yaml -e @ccp.yaml
+
+# Clone ansible CCP installer
+git clone https://github.com/adidenko/fuel-ccp-ansible
+
+# Build CCP images
+ansible-playbook -i $INVENTORY fuel-ccp-ansible/build.yaml -e @ccp.yaml
+
+# Deploy CCP
+ansible-playbook -i $INVENTORY fuel-ccp-ansible/deploy.yaml -e @ccp.yaml
+
 popd
