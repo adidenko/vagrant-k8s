@@ -15,6 +15,6 @@ cat nodes
 ansible all -m ping -i $INVENTORY
 
 # Deploy cluster
-./run-bird.sh
+./test-bird.sh
 
 popd
