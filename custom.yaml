@@ -43,3 +43,5 @@ searchdomains:
   - ccp.svc.cluster.local
 nameservers:
   - 8.8.8.8
+
+docker_version: 1.12

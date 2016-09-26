@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KARGO_COMMIT='custom-calico-over-hyperkube'
+KARGO_COMMIT='custom-calico-hyperkube'
 
 # Packages
 apt-get --yes update
