@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KARGO_COMMIT='custom-calico-hyperkube'
+KARGO_COMMIT='fix-delegate-to'
 
 # Packages
 apt-get --yes update

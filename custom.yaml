@@ -8,9 +8,9 @@ kube_version: "v1.3.5"
 kube_network_plugin: "calico"
 calico_version: "v0.20.0"
 calico_cni_version: "v1.3.1"
-calico_cni_download_url: "https://github.com/adidenko/bin-files/raw/master/calico-cni/calico"
-calico_cni_checksum: "d084921935bca435ea7e157d5650901075cd606064fd12bc00fed291670b5719"
-overwrite_cni: true
+#calico_cni_download_url: "https://github.com/adidenko/bin-files/raw/master/calico-cni/calico"
+#calico_cni_checksum: "d084921935bca435ea7e157d5650901075cd606064fd12bc00fed291670b5719"
+#overwrite_cni: true
 # For Mirantis users
 #calico_node_image_repo: "artifactory.mcp.mirantis.net:5004/calico/node"
 # For others
