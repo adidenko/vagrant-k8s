@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KARGO_COMMIT='fix-delegate-to'
+KARGO_COMMIT='016b7893c64fede07269c01cac31e96c8ee0d257'
 
 # Packages
 apt-get --yes update
@@ -21,9 +21,8 @@ test -f ./nodes && echo 'for i in `cat nodes`; do screen -t $i ssh $i; done' > .
 cp -a /var/tmp/microservices* ./ccp/ || touch /var/tmp/ccp-download
 
 # Pull kargo
-#git clone https://github.com/kubespray/kargo ~/kargo
-#cd ~/kargo
-git clone https://github.com/adidenko/kargo ~/kargo
+git clone https://github.com/kubespray/kargo ~/kargo
+#git clone https://github.com/adidenko/kargo ~/kargo
 cd ~/kargo
 
 # Checkout to kargo commit
