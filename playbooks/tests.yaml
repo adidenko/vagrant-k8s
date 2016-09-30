@@ -14,7 +14,7 @@
       run_once: true
 
     - name: Deploy netchecker
-      shell: "curl -s https://raw.githubusercontent.com/aateem/netchecker-server/new-deployment-script/utils/deploy_netchecker.sh | bash"
+      shell: "curl -s https://raw.githubusercontent.com/aateem/netchecker-server/master/utils/deploy_netchecker.sh | bash"
       run_once: true
       when: get_svc.stdout.find('netchecker-service') == -1
 
