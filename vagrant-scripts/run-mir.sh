@@ -7,13 +7,16 @@ LAST_CNI=`curl -s ${BASE_URL}/calico-cni/lastbuild`
 
 git clone https://github.com/adidenko/vagrant-k8s ~/mcp
 
+CALICO_NODE_URL="${CALICO_NODE_URL:-${BASE_URL}/calico-containers/calico-containers-${LAST_NODE}.yaml}"
+CALICO_CNI_URL="${CALICO_CNI_URL:-${BASE_URL}/calico-cni/calico-cni-${LAST_CNI}.yaml}"
+
 pushd ~/mcp
 
 # Step 0, prepare some configs
 
 cp mir.yaml tmp.yaml
-curl -s ${BASE_URL}/calico-containers/calico-containers-${LAST_NODE}.yaml >> tmp.yaml
-curl -s ${BASE_URL}/calico-cni/calico-cni-${LAST_CNI}.yaml >> tmp.yaml
+curl -s $CALICO_NODE_URL >> tmp.yaml
+curl -s $CALICO_CNI_URL >> tmp.yaml
 
 # Step 1
 bash -x ./bootstrap-master.sh
