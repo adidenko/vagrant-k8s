@@ -38,5 +38,5 @@
       delay: 5
 
     - name: Check netchecker status
-      uri: url=http://localhost:31081/api/v1/connectivity_check status_code<300
+      uri: url=http://localhost:31081/api/v1/connectivity_check status_code=204
       run_once: true
