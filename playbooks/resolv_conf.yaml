@@ -1,0 +1,12 @@
+- hosts: all
+  tasks:
+
+    - name: Get resolv.conf
+      shell: cat /etc/resolv.conf
+      register: resolv_conf
+
+    - name: Add needed namespaces to resolv.conf
+      shell: sed '/^search / s/$/ {{ item }}/' -i /etc/resolv.conf
+      when: resolv_conf.stdout.find('{{ item }}') == -1
+      with_items:
+        - "kube-system.svc.cluster.local"

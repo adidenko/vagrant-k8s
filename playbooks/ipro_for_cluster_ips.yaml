@@ -18,10 +18,6 @@
       shell: ip ro ls | grep "^{{ hostvars[groups['kube-master'][0]]['kube_service_addresses']['stdout'] }}" || echo ""
       register: local_route
 
-    - name: Get resolv.conf
-      shell: cat /etc/resolv.conf
-      register: resolv_conf
-
     - name: Clean up route
       shell: ip ro del {{ hostvars[groups['kube-master'][0]]['kube_service_addresses']['stdout'] }} || true
       when: local_route.stdout.find('{{ local_ip.stdout }}') == -1
@@ -29,10 +25,3 @@
     - name: Setup route
       shell: ip ro add {{ hostvars[groups['kube-master'][0]]['kube_service_addresses']['stdout'] }} via {{ local_ip.stdout }}
       when: local_route.stdout.find('{{ local_ip.stdout }}') == -1
-
-    - name: Add needed namespaces to resolv.conf
-      shell: sed '/^search / s/$/ {{ item }}/' -i /etc/resolv.conf
-      when: resolv_conf.stdout.find('{{ item }}') == -1
-      with_items:
-        - "kube-system.svc.cluster.local"
-
