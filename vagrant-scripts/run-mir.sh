@@ -1,6 +1,12 @@
 #!/bin/bash
 set -xe
 
+if [ "$1" == "neutron" ] ; then
+  CCP_YAML=""
+else
+  CCP_YAML="-e @ccp.yaml"
+fi
+
 BASE_URL="https://artifactory.mcp.mirantis.net/artifactory/projectcalico/mcp-0.1"
 LAST_NODE=`curl -s ${BASE_URL}/calico-containers/lastbuild`
 LAST_CNI=`curl -s ${BASE_URL}/calico-cni/lastbuild`
@@ -32,18 +38,18 @@ ansible all -m ping -i $INVENTORY
 bash -x deploy-k8s.kargo.sh tmp.yaml
 
 # Test network
-ansible-playbook -i $INVENTORY playbooks/tests.yaml
+ansible-playbook -i $INVENTORY playbooks/tests.yaml $CCP_YAML
 
 # Run some extra customizations
-ansible-playbook -i $INVENTORY playbooks/design.yaml
+ansible-playbook -i $INVENTORY playbooks/design.yaml $CCP_YAML
 
 # Clone ansible CCP installer
 git clone https://github.com/adidenko/fuel-ccp-ansible
 
 # Build CCP images
-ansible-playbook -i $INVENTORY fuel-ccp-ansible/build.yaml
+ansible-playbook -i $INVENTORY fuel-ccp-ansible/build.yaml $CCP_YAML
 
 # Deploy CCP
-ansible-playbook -i $INVENTORY fuel-ccp-ansible/deploy.yaml
+ansible-playbook -i $INVENTORY fuel-ccp-ansible/deploy.yaml $CCP_YAML
 
 popd
