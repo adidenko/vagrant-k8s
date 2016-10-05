@@ -3,7 +3,7 @@ ccp_neutron_logging_debug: "true"
 ccp_num_images: 44
 ccp_gerrit_reviews:
   - repo: "fuel-ccp-neutron"
-    refspec: "refs/changes/89/345489/31"
+    refspec: "refs/changes/89/345489/32"
 
 # Set ccp_redeploy to true if you want playbooks to automatically remove
 # kubernetes CCP namespace and re-deploy it from the scratch.
