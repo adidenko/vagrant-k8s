@@ -21,8 +21,16 @@
     - name: Wait for netchecker server
       shell: "kubectl get pods | grep ^netchecker-server"
       run_once: true
-      register: nc_svc
-      until: nc_svc.stdout.find('Running') != -1
+      register: ncs_pod
+      until: ncs_pod.stdout.find('Running') != -1
+      retries: 120
+      delay: 10
+
+    - name: Wait for netchecker agents
+      shell: "kubectl get pods | grep '^netchecker-agent-.*Running'"
+      run_once: true
+      register: nca_pod
+      until: "{{ nca_pod.stdout_lines|length }} >= {{ groups['all']|length * 2 }}"
       retries: 120
       delay: 10
 
