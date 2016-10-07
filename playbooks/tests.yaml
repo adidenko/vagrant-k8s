@@ -43,7 +43,7 @@
       register: agents
 
     - name: Give some time to netchecker agents to report
-      pause: seconds=90
+      pause: seconds=130
       when: "{{ (agents.content|from_json|length) }} < {{ groups['all']|length * 2 }}"
 
     - name: Check netchecker status
