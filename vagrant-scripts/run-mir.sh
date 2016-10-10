@@ -15,6 +15,7 @@ git clone https://github.com/adidenko/vagrant-k8s ~/mcp
 
 CALICO_NODE_URL="${CALICO_NODE_URL:-${BASE_URL}/calico-containers/calico-containers-${LAST_NODE}.yaml}"
 CALICO_CNI_URL="${CALICO_CNI_URL:-${BASE_URL}/calico-cni/calico-cni-${LAST_CNI}.yaml}"
+NETCHECK="${NETCHECK:-skip}"
 
 pushd ~/mcp
 
@@ -38,7 +39,9 @@ ansible all -m ping -i $INVENTORY
 bash -x deploy-k8s.kargo.sh tmp.yaml
 
 # Test network
-ansible-playbook -i $INVENTORY playbooks/tests.yaml $CCP_YAML
+if [ "$NETCHECK" != "skip"] ; then
+  ansible-playbook -i $INVENTORY playbooks/tests.yaml $CCP_YAML
+fi
 
 # Run some extra customizations
 ansible-playbook -i $INVENTORY playbooks/design.yaml $CCP_YAML

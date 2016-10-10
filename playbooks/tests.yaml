@@ -36,6 +36,7 @@
 
     - name: Sleep for 10 seconds
       pause: seconds=10
+      when: get_svc.stdout.find('netchecker-service') == -1
 
     - name: Get netchecker agents
       uri: url=http://localhost:31081/api/v1/agents/ return_content=yes
@@ -49,3 +50,5 @@
     - name: Check netchecker status
       uri: url=http://localhost:31081/api/v1/connectivity_check status_code=204
       run_once: true
+      retries: 6
+      delay: 20
