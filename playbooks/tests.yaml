@@ -48,7 +48,7 @@
       when: "{{ (agents.content|from_json|length) }} < {{ groups['all']|length * 2 }}"
 
     - name: Check netchecker status
-      uri: url=http://localhost:31081/api/v1/connectivity_check status_code=204
+      uri: url=http://localhost:31081/api/v1/connectivity_check status_code=200
       run_once: true
       retries: 6
       delay: 20
