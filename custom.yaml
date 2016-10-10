@@ -5,6 +5,8 @@ docker_version: 1.12
 kube_network_plugin: "calico"
 calico_version: "v0.20.0"
 calico_cni_version: "v1.4.2"
+calico_cni_checksum: "9cab29764681e9d80da826e4b2cd10841cc01a749e0018867d96dd76a4691548"
+calico_cni_ipam_checksum: "09d076b15b791956efee91646e47fdfdcf382db16082cef4f542a9fff7bae172"
 #calico_cni_download_url: "https://github.com/adidenko/bin-files/raw/master/calico-cni/calico"
 #calico_cni_checksum: "d084921935bca435ea7e157d5650901075cd606064fd12bc00fed291670b5719"
 # For Mirantis users
@@ -32,7 +34,7 @@ etcd_version: "v3.0.10"
 
 #Required for hyperkube >=1.3.4. Set to false if installing old hyperkube
 #use_hyperkube_cni: true
-#overwrite_hyperkube_cni: true
+overwrite_hyperkube_cni: true
 
 # Custom (additional) DNS settings
 searchdomains:
