@@ -2,9 +2,9 @@
 set -xe
 
 if [ "$1" == "neutron" ] ; then
-  CCP_YAML=""
+  export CCP_YAML=""
 else
-  CCP_YAML="-e @ccp.yaml"
+  export CCP_YAML="-e @ccp.yaml"
 fi
 
 BASE_URL="https://artifactory.mcp.mirantis.net/artifactory/projectcalico/mcp-0.1"
