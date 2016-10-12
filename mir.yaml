@@ -25,6 +25,7 @@ etcd_version: "v3.0.10"
 #Required for hyperkube >=1.3.4. Set to false if installing old hyperkube
 #use_hyperkube_cni: true
 #overwrite_hyperkube_cni: true
+enable_network_policy: true
 
 # Custom (additional) DNS settings
 searchdomains:
