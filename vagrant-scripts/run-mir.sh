@@ -7,7 +7,7 @@ else
   export CCP_YAML="-e @ccp.yaml"
 fi
 
-BASE_URL="https://artifactory.mcp.mirantis.net/artifactory/sandbox/mcp"
+BASE_URL="https://artifactory.mcp.mirantis.net/artifactory/projectcalico/mcp"
 LAST_NODE=`curl -s ${BASE_URL}/calico-containers/lastbuild`
 LAST_CNI=`curl -s ${BASE_URL}/calico-cni/lastbuild`
 
