@@ -3,16 +3,10 @@ docker_version: 1.12
 
 # Switch network to calico
 kube_network_plugin: "calico"
-calico_version: "v0.20.0"
+calico_version: "latest"
 calico_cni_version: "v1.4.2"
 calico_cni_checksum: "9cab29764681e9d80da826e4b2cd10841cc01a749e0018867d96dd76a4691548"
 calico_cni_ipam_checksum: "09d076b15b791956efee91646e47fdfdcf382db16082cef4f542a9fff7bae172"
-#calico_cni_download_url: "https://github.com/adidenko/bin-files/raw/master/calico-cni/calico"
-#calico_cni_checksum: "d084921935bca435ea7e157d5650901075cd606064fd12bc00fed291670b5719"
-# For Mirantis users
-#calico_node_image_repo: "artifactory.mcp.mirantis.net:5004/calico/node"
-# For others
-calico_node_image_repo: "docker.io/l23network/node"
 
 # Kube-proxy should be iptables for calico
 kube_proxy_mode: "iptables"
