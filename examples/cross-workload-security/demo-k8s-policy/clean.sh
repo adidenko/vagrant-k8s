@@ -9,6 +9,7 @@ etcdctl rm -r /calico/v1/policy/tier/k8s-openstack
 
 kubectl delete deployment nginx01 --namespace=ns1
 kubectl delete deployment nginx02 --namespace=ns2
+kubectl delete deployment nginx03 --namespace=ns2
 
 kubectl delete namespace ns1
 kubectl delete namespace ns2

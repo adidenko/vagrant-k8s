@@ -20,7 +20,9 @@ DEMO_DRY_RUN=${DEMO_DRY_RUN:-false}
 # Constants
 # ----------------------------------------------------------------------------
 
-readonly TYPE_TIMEOUT=0.05
+readonly TIMEOUT_TYPE=0.05
+readonly TIMEOUT_POST_MSG=2
+readonly TIMEOUT_POST_RUN=4
 
 # ----------------------------------------------------------------------------
 # Color constants
@@ -43,7 +45,7 @@ function _print_str {
   else
     for ((i=0; i<${#string}; i++)); do
       echo -n "${string:$i:1}"
-      sleep $TYPE_TIMEOUT
+      sleep $TIMEOUT_TYPE
     done
   fi
 }
@@ -57,6 +59,8 @@ function msg {
     echo
   done
   echo -n "${F_RESET}"
+
+  sleep $(( $TIMEOUT_POST_MSG * $# ))
 }
 
 # Print command and execute it
@@ -74,6 +78,19 @@ function run {
   if ! $DEMO_DRY_RUN; then
     eval $@
   fi
+
+  if ! $DEMO_NO_TYPE; then
+    sleep $TIMEOUT_POST_RUN
+  fi
+}
+
+# Print horizontal line
+function print_hr {
+    local size=${1:-77}
+    local symbol=${2:-'='}
+    echo -n "${F_BOLD}${FG_YELLOW}# "
+    printf '%'${size}'s\n' | tr ' ' ${symbol}
+    echo -n "${F_RESET}"
 }
 
 # ----------------------------------------------------------------------------
