@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KARGO_COMMIT="${KARGO_COMMIT:-c03bab3246d1dce759aa841642b4dafea1228233}"
+KARGO_COMMIT="${KARGO_COMMIT:-a423927ac9f3391a3c37215e2c1494d7f885fbe1}"
 
 # Packages
 apt-get --yes update
