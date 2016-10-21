@@ -216,5 +216,6 @@ General demo showing that this PoC works
 [![asciicast](https://asciinema.org/a/83702.png)](https://asciinema.org/a/83702)
 
 ### Cross-workload security demo
-Demo showing cross-workload security: isolation between Kunernetes namespaces and OpenStack tenants
+Demo showing cross-workload security: how to allow connections between Kubernetes
+namespace and OpenStack tenant and isolate from other namespaces and tenants.
 [![asciicast](https://asciinema.org/a/89622.png)](https://asciinema.org/a/89622)
