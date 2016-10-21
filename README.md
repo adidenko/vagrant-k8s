@@ -18,8 +18,10 @@ vagrant-k8s
 This repository contains scripts to:
 
 * Create libvirt lab with vagrant and prepare some prerequirements.
-* Deploy Kubernetes with Calico networking plugin on a list of nodes using Kargo.
-* Deploy OpenStack Containerized Control Plane (fuel-ccp) with networking-calico on top of k8s.
+* Deploy Kubernetes with Calico networking plugin on a list of nodes using
+  Kargo (the green part on the deployment scheme).
+* Deploy OpenStack Containerized Control Plane (fuel-ccp) with `networking-calico`
+  Neutron ML2 plugin on top of k8s (the red part on the deployment scheme).
 
 ![Deployment scheme](img/ccp-calico.png)
 ![legend](img/legend.png)
