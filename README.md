@@ -1,6 +1,19 @@
 vagrant-k8s
 ===========
-Scripts to:
+
+**Table of Contents**
+
+- [Requirements](#)
+- [Vargant lab preparation](#)
+- [Deployment Kubernetes on your lab](#)
+- [Deploy CCP on Kubernetes](#)
+- [Working with kubernetes](#)
+
+
+Introduction
+------------
+
+This repository contains scripts to:
 
 * Create libvirt lab with vagrant and prepare some prerequirements.
 * Deploy Kubernetes with Calico networking plugin on a list of nodes using Kargo.
