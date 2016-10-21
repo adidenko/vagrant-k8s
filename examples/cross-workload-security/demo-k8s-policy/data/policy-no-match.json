@@ -1,0 +1,15 @@
+{
+    "inbound_rules": [
+        {
+            "action": "next-tier"
+        }
+    ],
+    "order": 2000,
+    "outbound_rules": [
+        {
+            "action": "next-tier"
+        }
+    ],
+    "selector": ""
+}
+
