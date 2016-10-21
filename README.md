@@ -3,12 +3,15 @@ vagrant-k8s
 
 **Table of Contents**
 
+- [Introduction](#introduction)
 - [Requirements](#requirements)
 - [Vargant lab preparation](#vargant-lab-preparation)
 - [Deployment Kubernetes on your lab](#deployment-kubernetes-on-your-lab)
 - [Deploy CCP on Kubernetes](#deploy-ccp-on-kubernetes)
 - [Working with kubernetes](#working-with-kubernetes)
-
+- [Demos](#demos)
+  - [PoC demo](#poc-demo)
+  - [Cross-workload security demo](#cross-workload-security-demo)
 
 ## Introduction
 
@@ -202,3 +205,13 @@ export OS_AUTH_URL=http://keystone:35357
 openstack service list
 neutron agent-list
 ```
+
+## Demos
+
+### PoC demo
+General demo showing that this PoC works
+[![asciicast](https://asciinema.org/a/83702.png)](https://asciinema.org/a/83702)
+
+### Cross-workload security demo
+Demo showing cross-workload security: isolation between Kunernetes namespaces and OpenStack tenants
+[![asciicast](https://asciinema.org/a/89622.png)](https://asciinema.org/a/89622)
