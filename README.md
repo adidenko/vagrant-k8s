@@ -3,15 +3,14 @@ vagrant-k8s
 
 **Table of Contents**
 
-- [Requirements](#)
-- [Vargant lab preparation](#)
-- [Deployment Kubernetes on your lab](#)
-- [Deploy CCP on Kubernetes](#)
-- [Working with kubernetes](#)
+- [Requirements](#requirements)
+- [Vargant lab preparation](#vargant-lab-preparation)
+- [Deployment Kubernetes on your lab](#deployment-kubernetes-on-your-lab)
+- [Deploy CCP on Kubernetes](#deploy-ccp-on-kubernetes)
+- [Working with kubernetes](#working-with-kubernetes)
 
 
-Introduction
-------------
+## Introduction
 
 This repository contains scripts to:
 
@@ -21,16 +20,14 @@ This repository contains scripts to:
 
 ![Deployment scheme](img/k8s-ccp-calico-02.png)
 
-Requirements
-------------
+## Requirements
 
 * `libvirt`
 * `vagrant`
 * `vagrant-libvirt` plugin (`vagrant plugin install vagrant-libvirt`)
 * `$USER` should be able to connect to libvirt (test with `virsh list --all`)
 
-Vargant lab preparation
------------------------
+## Vargant lab preparation
 
 * Change default IP pool for vagrant networks if you want
 
@@ -51,8 +48,7 @@ cd vagrant-k8s
 vagrant up
 ```
 
-Deployment Kubernetes on your lab
----------------------------------
+## Deployment Kubernetes on your lab
 
 * Login to master node and sudo to root
 
@@ -96,8 +92,7 @@ cd ~/mcp
 ./deploy-k8s.kargo.sh
 ```
 
-Deploy CCP on Kubernetes
-------------------------
+## Deploy CCP on Kubernetes
 
 * Make sure CCP deployment config matches your deployment environment
 and update if needed. You can also add you CCP reviews here
@@ -152,8 +147,7 @@ echo $HORIZON_PORT
 curl -i -s $ANY_K8S_NODE_IP:$HORIZON_PORT
 ```
 
-Working with kubernetes
------------------------
+## Working with kubernetes
 
 * Login to one of your kube-master nodes and run
 
