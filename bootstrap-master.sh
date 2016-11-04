@@ -1,6 +1,7 @@
 #!/bin/bash
 
-KARGO_COMMIT="${KARGO_COMMIT:-a423927ac9f3391a3c37215e2c1494d7f885fbe1}"
+KARGO_COMMIT="${KARGO_COMMIT:-ebeb57ee7c8896de95e02db8a62a32f8cb3580ef}"
+KARGO_REPO="${KARGO_REPO:-https://github.com/kubernetes-incubator/kargo}"
 
 # Packages
 apt-get --yes update
@@ -21,8 +22,7 @@ test -f ./nodes && echo 'for i in `cat nodes`; do screen -t $i ssh $i; done' > .
 cp -a /var/tmp/microservices* ./ccp/ || touch /var/tmp/ccp-download
 
 # Pull kargo
-git clone https://github.com/kubespray/kargo ~/kargo
-#git clone https://github.com/adidenko/kargo ~/kargo
+git clone $KARGO_REPO ~/kargo
 cd ~/kargo
 
 # Checkout to kargo commit
