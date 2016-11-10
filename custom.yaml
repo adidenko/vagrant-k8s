@@ -31,6 +31,7 @@ etcd_version: "v3.0.12"
 #use_hyperkube_cni: true
 overwrite_hyperkube_cni: true
 enable_network_policy: true
+use_calico_cni_container: true
 
 # Custom (additional) DNS settings
 searchdomains:
