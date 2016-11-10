@@ -3,8 +3,9 @@
 set -e
 set -x
 
-export KARGO_COMMIT="canal-support"
-export KARGO_REPO="https://github.com/adidenko/kargo"
+# Canal support has been merged to upstream
+#export KARGO_COMMIT="canal-support"
+#export KARGO_REPO="https://github.com/adidenko/kargo"
 
 git clone https://github.com/adidenko/vagrant-k8s ~/mcp
 
