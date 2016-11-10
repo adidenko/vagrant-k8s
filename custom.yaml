@@ -3,11 +3,11 @@ docker_version: 1.12
 
 # Switch network to calico
 kube_network_plugin: "calico"
-calico_version: "v0.23.0"
+calico_version: "v1.0.0-beta"
 calicoctl_image_tag: "v0.22.0"
-calico_cni_version: "v1.4.2"
-calico_cni_checksum: "9cab29764681e9d80da826e4b2cd10841cc01a749e0018867d96dd76a4691548"
-calico_cni_ipam_checksum: "09d076b15b791956efee91646e47fdfdcf382db16082cef4f542a9fff7bae172"
+calico_cni_version: "v1.5.0"
+calico_cni_checksum: "357cf02f6955b8d69bf3770ae764e376fe9eddade92e819c8553e25fcd86cc26"
+calico_cni_ipam_checksum: "b219ed6428b37687caa63966b216aa1650d9b6f413dbaba05b8b50359d5f6f9a"
 
 # Kube-proxy should be iptables for calico
 kube_proxy_mode: "iptables"
@@ -22,7 +22,7 @@ upstream_dns_servers:
   - /mirantis.net/172.18.32.6
 
 #Override hyperkube image to use CoreOS v1.3.5
-kube_version: "v1.4.0"
+kube_version: "v1.4.3"
 hyperkube_image_repo: "quay.io/coreos/hyperkube"
 hyperkube_image_tag: "v1.4.0_coreos.1"
 etcd_version: "v3.0.12"
@@ -37,3 +37,6 @@ searchdomains:
   - ccp.svc.cluster.local
 nameservers:
   - 8.8.8.8
+
+#Download once, then push to nodes in batches, if enabled
+download_run_once: true
