@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KARGO_COMMIT="${KARGO_COMMIT:-9ea9604b3f7c08c24b93af5220dfd56da39de8b3}"
+KARGO_COMMIT="${KARGO_COMMIT:-5821f9748aaf0d9f218dc9108acf4862b53043a1}"
 KARGO_REPO="${KARGO_REPO:-https://github.com/kubernetes-incubator/kargo}"
 
 # Packages
