@@ -18,7 +18,6 @@ export K8S_NODES_FILE=`pwd`/nodes
 cat nodes
 ansible all -m ping -i $INVENTORY
 
-sed -e "/^kube_network_plugin:/d" -i custom.yaml
 cat << EOF >> custom.yaml
 calico_mtu: 1200
 EOF
