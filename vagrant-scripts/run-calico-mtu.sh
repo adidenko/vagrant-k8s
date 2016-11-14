@@ -20,8 +20,7 @@ ansible all -m ping -i $INVENTORY
 
 sed -e "/^kube_network_plugin:/d" -i custom.yaml
 cat << EOF >> custom.yaml
-kube_network_plugin: canal
-canal_iface: "eth2"
+calico_mtu: 1200
 EOF
 
 ./deploy-k8s.kargo.sh &> /var/log/kargo.log
