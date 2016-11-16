@@ -3,9 +3,9 @@
 set -e
 set -x
 
-# Canal support has been merged to upstream
-export KARGO_COMMIT="calico_mtu"
-export KARGO_REPO="https://github.com/adidenko/kargo"
+# Needed patches are merged to upstream
+#export KARGO_COMMIT="calico_mtu"
+#export KARGO_REPO="https://github.com/adidenko/kargo"
 
 git clone https://github.com/adidenko/vagrant-k8s ~/mcp
 
@@ -19,7 +19,7 @@ cat nodes
 ansible all -m ping -i $INVENTORY
 
 cat << EOF >> custom.yaml
-calico_mtu: 1200
+calico_mtu: 1360
 EOF
 
 ./deploy-k8s.kargo.sh &> /var/log/kargo.log

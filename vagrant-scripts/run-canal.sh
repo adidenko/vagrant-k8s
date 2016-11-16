@@ -4,8 +4,8 @@ set -e
 set -x
 
 # Canal support has been merged to upstream
-export KARGO_COMMIT="fix-canal-ssl"
-export KARGO_REPO="https://github.com/adidenko/kargo"
+#export KARGO_COMMIT="fix-canal-ssl"
+#export KARGO_REPO="https://github.com/adidenko/kargo"
 
 git clone https://github.com/adidenko/vagrant-k8s ~/mcp
 
