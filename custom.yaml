@@ -4,7 +4,7 @@ docker_version: 1.12
 # Switch network to calico
 kube_network_plugin: "calico"
 calico_version: "v1.0.0-beta"
-#calicoctl_image_tag: "v0.22.0"
+calicoctl_image_tag: "v1.0.0-beta"
 calico_cni_version: "v1.5.1"
 
 # Kube-proxy should be iptables for calico
