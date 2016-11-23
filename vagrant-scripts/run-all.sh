@@ -1,8 +1,8 @@
 #!/bin/bash
 set -xe
 
-export KARGO_COMMIT="fix-ansible_ssh_user"
-export KARGO_REPO="https://github.com/adidenko/kargo"
+#export KARGO_COMMIT="fix-ansible_ssh_user"
+#export KARGO_REPO="https://github.com/adidenko/kargo"
 
 git clone https://github.com/adidenko/vagrant-k8s ~/mcp
 
