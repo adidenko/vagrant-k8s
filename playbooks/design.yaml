@@ -22,6 +22,6 @@
       when: get_svc.stdout.find('etcd-calico') == -1
 
     - name: enable felix reporting
-      shell: etcdctl set /calico/v1/config/ReportingIntervalSecs 60
+      shell: etcdctl --peers={{etcd_access_addresses}} set /calico/v1/config/ReportingIntervalSecs 60
       run_once: true
       when: ccp_calico_etcd_host|default('etcd') == "etcd-calico"
