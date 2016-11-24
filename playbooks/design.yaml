@@ -1,4 +1,11 @@
 - hosts: kube-master
+
+  vars:
+    tap_iface_filter: |
+      if ( ifname ~ "tap*" ) then {
+        accept;
+      }
+
   tasks:
 
     - set_fact:
@@ -23,5 +30,10 @@
 
     - name: enable felix reporting
       shell: etcdctl --peers={{etcd_access_addresses}} set /calico/v1/config/ReportingIntervalSecs 60
+      run_once: true
+      when: ccp_calico_etcd_host|default('etcd') == "etcd-calico"
+
+    - name: set calico custom BGP export filters
+      shell: "etcdctl --peers={{etcd_access_addresses}} set /calico/bgp/v1/global/custom_filters/v4/tap_iface '{{tap_iface_filter}}'"
       run_once: true
       when: ccp_calico_etcd_host|default('etcd') == "etcd-calico"
