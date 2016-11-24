@@ -7,7 +7,7 @@ ENV["VAGRANT_DEFAULT_PROVIDER"] = "libvirt"
 prefix = pool.gsub(/\.\d+\.\d+\/16$/, "")
 
 $num_instances = 4
-$vm_memory = 6144
+$vm_memory = 4096
 $vm_cpus = 2
 $master_memory = 1024
 $master_cpus = 1
