@@ -18,7 +18,7 @@ cat nodes
 ansible all -m ping -i $INVENTORY
 
 # Deploy cluster
-bash -x deploy-k8s.kargo.sh
+bash -x deploy-k8s.kargo.sh &> /var/log/kargo.log
 
 # Test network
 ansible-playbook -i $INVENTORY playbooks/tests.yaml -e @ccp.yaml
