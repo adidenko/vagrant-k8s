@@ -5,9 +5,11 @@ vagrant-k8s
 
 - [Introduction](#introduction)
 - [Requirements](#requirements)
-- [Vargant lab preparation](#vargant-lab-preparation)
-- [Deployment Kubernetes on your lab](#deployment-kubernetes-on-your-lab)
-- [Deploy CCP on Kubernetes](#deploy-ccp-on-kubernetes)
+- [Step by step deployment](#step-by-step-deployment)
+  - [Vargant lab preparation](#vargant-lab-preparation)
+  - [Deployment Kubernetes on your lab](#deployment-kubernetes-on-your-lab)
+  - [Deploy CCP on Kubernetes](#deploy-ccp-on-kubernetes)
+- [Automated deployment](#automated-deployment)
 - [Working with kubernetes](#working-with-kubernetes)
 - [Demos](#demos)
   - [PoC demo](#poc-demo)
@@ -28,12 +30,17 @@ This repository contains scripts to:
 
 ## Requirements
 
+On the host system the following is required:
+
 * `libvirt`
 * `vagrant`
 * `vagrant-libvirt` plugin (`vagrant plugin install vagrant-libvirt`)
 * `$USER` should be able to connect to libvirt (test with `virsh list --all`)
+* `ansible-2.0+` (if you're going to run [fully automated deployment](#automated-deployment))
 
-## Vargant lab preparation
+## Step by step deployment
+
+### Vargant lab preparation
 
 * Change default IP pool for vagrant networks if you want
 
@@ -54,7 +61,7 @@ cd vagrant-k8s
 vagrant up
 ```
 
-## Deployment Kubernetes on your lab
+### Deployment Kubernetes on your lab
 
 * Login to master node and sudo to root
 
@@ -98,7 +105,7 @@ cd ~/mcp
 ./deploy-k8s.kargo.sh
 ```
 
-## Deploy CCP on Kubernetes
+### Deploy CCP on Kubernetes
 
 * Make sure CCP deployment config matches your deployment environment
 and update if needed. You can also add you CCP reviews here
@@ -151,6 +158,24 @@ echo $HORIZON_PORT
 
 # Access Horizon via nodePort
 curl -i -s $ANY_K8S_NODE_IP:$HORIZON_PORT
+```
+
+### Automated deployment
+
+Just run this:
+
+```bash
+export VAGRANT_ANSIBLE=true
+export VAGRANT_DEPLOY_K8=true
+vagrant up
+```
+
+Additional environment variables to control for customizations:
+
+```bash
+export KARGO_REPO="https://github.com/adidenko/kargo"
+export KARGO_COMMIT="update-calico-unit"
+export VAGRANT_DEPLOY_K8_CMD="./deploy-k8s.kargo.sh"
 ```
 
 ## Working with kubernetes
