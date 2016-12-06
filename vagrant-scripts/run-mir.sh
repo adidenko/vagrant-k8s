@@ -36,7 +36,8 @@ cat nodes
 ansible all -m ping -i $INVENTORY
 
 # Deploy cluster
-bash -x deploy-k8s.kargo.sh tmp.yaml
+export CUSTOM_YAML="tmp.yaml"
+bash -x deploy-k8s.kargo.sh
 
 # Test network
 if [ "$NETCHECK" != "skip"] ; then

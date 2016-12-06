@@ -49,7 +49,7 @@
     - "ansible all -m ping -i $INVENTORY"
     - "{{ deploy_k8s_cmd }}"
     environment:
-      CUSTOM: "{{ custom_yaml|default('') }}"
+      CUSTOM_YAML: "{{ custom_yaml|default('') }}"
     when: "{{ deploy_k8s|default(false) | bool }}"
 
   - name: End-to-end k8s tests
