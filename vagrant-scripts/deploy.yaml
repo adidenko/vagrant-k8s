@@ -14,6 +14,11 @@
 
   tasks:
 
+  - name: Set custom yaml fact
+    set_fact:
+      custom_yaml: "/tmp/kargo_custom.yaml"
+    when: "{{ deploy_k8s|default(false) | bool }} and {{ kargo_custom_yaml|default('') != '' }}"
+
   - name: Provision master
     shell: "/vagrant/vagrant-scripts/provision-master.sh"
 
@@ -30,6 +35,12 @@
     - "git pull"
     - "./bootstrap-master.sh"
 
+  - name: Upload custom yaml
+    synchronize:
+      src: "{{ kargo_custom_yaml }}"
+      dst: "{{ custom_yaml }}"
+    when: "{{ custom_yaml|default('') != '' }}"
+
   - name: Deploy k8s
     shell: "{{ item }}"
     args:
@@ -37,6 +48,8 @@
     with_items:
     - "ansible all -m ping -i $INVENTORY"
     - "{{ deploy_k8s_cmd }}"
+    environment:
+      CUSTOM: "{{ custom_yaml|default('') }}"
     when: "{{ deploy_k8s|default(false) | bool }}"
 
   - name: End-to-end k8s tests

@@ -46,6 +46,7 @@ ansible_groups = {
 }
 ansible_host_vars = {}
 ansible_extra_vars = {
+  kargo_custom_yaml: ENV["KARGO_CUSTOM_YAML"] || "",
   kargo_repo: ENV["KARGO_REPO"] || "",
   kargo_commit: ENV["KARGO_COMMIT"] || "",
   deploy_k8s: ENV["VAGRANT_DEPLOY_K8"] || "false",
