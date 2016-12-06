@@ -1,0 +1,48 @@
+- hosts: worker
+  tasks:
+
+  - name: Provision worker
+    shell: "/vagrant/vagrant-scripts/provision-node.sh"
+
+- hosts: master
+
+  environment:
+    INVENTORY: "/root/mcp/nodes_to_inv.py"
+    K8S_NODES_FILE: "/root/mcp/nodes"
+    KARGO_REPO: "{{ kargo_repo | default('') }}"
+    KARGO_COMMIT: "{{ kargo_commit | default('') }}"
+
+  tasks:
+
+  - name: Provision master
+    shell: "/vagrant/vagrant-scripts/provision-master.sh"
+
+  - name: Clone project
+    git:
+      repo: "https://github.com/adidenko/vagrant-k8s"
+      dest: "/root/mcp"
+
+  - name: Bootstrap master
+    shell: "{{ item }}"
+    args:
+      chdir: "/root/mcp"
+    with_items:
+    - "git pull"
+    - "./bootstrap-master.sh"
+
+  - name: Deploy k8s
+    shell: "{{ item }}"
+    args:
+      chdir: "/root/mcp"
+    with_items:
+    - "ansible all -m ping -i $INVENTORY"
+    - "{{ deploy_k8s_cmd }}"
+    when: "{{ deploy_k8s|default(false) | bool }}"
+
+  - name: End-to-end k8s tests
+    shell: "{{ item }}"
+    args:
+      chdir: "/root/mcp"
+    with_items:
+    - "ansible-playbook -i $INVENTORY playbooks/tests.yaml -e @ccp.yaml"
+    when: "{{ deploy_k8s|default(false) | bool }}"

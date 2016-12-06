@@ -1,3 +1,4 @@
 ssh
 nodes
 tmp.yaml
+vagrant-scripts/deploy.retry

@@ -7,7 +7,7 @@ ENV["VAGRANT_DEFAULT_PROVIDER"] = "libvirt"
 prefix = pool.gsub(/\.\d+\.\d+\/16$/, "")
 
 $num_instances = 4
-$vm_memory = 4096
+$vm_memory = 3072
 $vm_cpus = 2
 $master_memory = 1024
 $master_cpus = 1
@@ -39,6 +39,19 @@ nodes=""
 end
 File.open("nodes", 'w') { |file| file.write(nodes) }
 
+# Some ansible configuration
+ansible_groups = {
+  "master" => [],
+  "worker" => []
+}
+ansible_host_vars = {}
+ansible_extra_vars = {
+  kargo_repo: ENV["KARGO_REPO"] || "",
+  kargo_commit: ENV["KARGO_COMMIT"] || "",
+  deploy_k8s: ENV["VAGRANT_DEPLOY_K8"] || "false",
+  deploy_k8s_cmd: ENV["VAGRANT_DEPLOY_K8_CMD"] || "./deploy-k8s.kargo.sh"
+}
+
 # Create the lab
 Vagrant.configure("2") do |config|
   (0..$num_instances-1).each do |i|
@@ -47,6 +60,11 @@ Vagrant.configure("2") do |config|
 
     config.ssh.insert_key = false
     vm_name = "%s-%02d" % [$instance_name_prefix, i]
+    if master
+      ansible_groups["master"] << vm_name
+    else
+      ansible_groups["worker"] << vm_name
+    end
 
     config.vm.define vm_name do |test_vm|
       test_vm.vm.box = $box
@@ -104,12 +122,28 @@ Vagrant.configure("2") do |config|
         :libvirt__forward_mode => "none"
 
       # Provisioning
-      config.vm.provision "file", source: "ssh", destination: "~/ssh"
-      if master
+      if ENV["VAGRANT_ANSIBLE"]
+
+        config.vm.provision "file", source: "ssh", destination: "~/ssh"
         config.vm.provision "nodes", type: "file", source: "nodes", destination: "/var/tmp/nodes"
-        config.vm.provision "bootstrap", type: "shell", path: "vagrant-scripts/provision-master.sh"
+        config.vm.provision "ansible" do |ansible|
+          ansible.sudo = true
+          ansible.host_vars = ansible_host_vars
+          ansible.groups = ansible_groups
+          ansible.extra_vars = ansible_extra_vars
+          ansible.playbook = "vagrant-scripts/deploy.yaml"
+        end
+
       else
-        config.vm.provision "bootstrap", type: "shell", path: "vagrant-scripts/provision-node.sh"
+
+        config.vm.provision "file", source: "ssh", destination: "~/ssh"
+        if master
+          config.vm.provision "nodes", type: "file", source: "nodes", destination: "/var/tmp/nodes"
+          config.vm.provision "bootstrap", type: "shell", path: "vagrant-scripts/provision-master.sh"
+        else
+          config.vm.provision "bootstrap", type: "shell", path: "vagrant-scripts/provision-node.sh"
+        end
+
       end
 
     end
