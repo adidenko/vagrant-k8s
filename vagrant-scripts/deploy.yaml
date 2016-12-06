@@ -38,7 +38,7 @@
   - name: Upload custom yaml
     synchronize:
       src: "{{ kargo_custom_yaml }}"
-      dst: "{{ custom_yaml }}"
+      dest: "{{ custom_yaml }}"
     when: "{{ custom_yaml|default('') != '' }}"
 
   - name: Deploy k8s
