@@ -160,7 +160,7 @@ echo $HORIZON_PORT
 curl -i -s $ANY_K8S_NODE_IP:$HORIZON_PORT
 ```
 
-### Automated deployment
+## Automated deployment
 
 Just run this:
 
@@ -170,7 +170,7 @@ export VAGRANT_DEPLOY_K8=true
 vagrant up
 ```
 
-Additional environment variables to control for customizations:
+Additional environment variables for customization:
 
 ```bash
 export KARGO_REPO="https://github.com/adidenko/kargo"
