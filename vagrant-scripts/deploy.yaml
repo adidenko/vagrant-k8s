@@ -11,6 +11,7 @@
     K8S_NODES_FILE: "/root/mcp/nodes"
     KARGO_REPO: "{{ kargo_repo | default('') }}"
     KARGO_COMMIT: "{{ kargo_commit | default('') }}"
+    CALICO_RRS: "{{ calico_rrs | default(0) }}"
 
   tasks:
 
