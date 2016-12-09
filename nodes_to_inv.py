@@ -55,7 +55,8 @@ def nodes_to_hash(nodes_list, masters, calico_rrs, group_vars):
         }
 
         if i <= calico_rrs:
-            cluster_id = "1.0.0.%s" % i
+#            cluster_id = "1.0.0.%s" % i
+            cluster_id = "1.0.0.1"
             nodes['calico-rr']['hosts'].append(node_name)
             nodes['_meta']['hostvars'][node_name]['cluster_id'] = cluster_id
             continue
