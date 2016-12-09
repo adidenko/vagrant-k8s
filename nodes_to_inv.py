@@ -79,7 +79,7 @@ def main():
         nodes_file = 'nodes'
 
     if os.environ.get('CALICO_RRS'):
-        calico_rrs = int(os.environ['K8S_MASTERS'])
+        calico_rrs = int(os.environ['CALICO_RRS'])
     else:
         calico_rrs = 0
 
