@@ -6,7 +6,7 @@ pool = ENV["VAGRANT_POOL"] || "10.250.0.0/16"
 ENV["VAGRANT_DEFAULT_PROVIDER"] = "libvirt"
 prefix = pool.gsub(/\.\d+\.\d+\/16$/, "")
 
-$num_instances = ENV["VAGRANT_VMS"] || 4
+$num_instances = (ENV["VAGRANT_VMS"] || 4).to_i
 $vm_memory = ENV["VAGRANT_VM_MEMORY"] || 3072
 $vm_cpus = ENV["VAGRANT_VM_CPUS"] || 2
 $master_memory = 1024
