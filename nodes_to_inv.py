@@ -62,9 +62,9 @@ def nodes_to_hash(nodes_list, masters, calico_rrs, group_vars):
             continue
 
         nodes['kube-node']['hosts'].append(node_name)
-        if i <= masters:
+        if i <= masters + calico_rrs:
             nodes['kube-master']['hosts'].append(node_name)
-        if i <= 3:
+        if i <= 3 + calico_rrs:
             nodes['etcd']['hosts'].append(node_name)
 
     return nodes
