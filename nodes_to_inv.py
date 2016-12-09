@@ -47,6 +47,8 @@ def nodes_to_hash(nodes_list, masters, calico_rrs, group_vars):
 
     for node_ip in nodes_list:
         i += 1
+        #cluster_id = "1.0.0.%s" % i
+        cluster_id = "1.0.0.1"
         node_name = "node%s" % i
         nodes['all']['hosts'].append(node_name)
         nodes['_meta']['hostvars'][node_name] = {
@@ -54,11 +56,11 @@ def nodes_to_hash(nodes_list, masters, calico_rrs, group_vars):
             'ip': node_ip,
         }
 
+        if calico_rrs + 0 > 0:
+           nodes['_meta']['hostvars'][node_name]['cluster_id'] = cluster_id
+
         if i <= calico_rrs:
-#            cluster_id = "1.0.0.%s" % i
-            cluster_id = "1.0.0.1"
             nodes['calico-rr']['hosts'].append(node_name)
-            nodes['_meta']['hostvars'][node_name]['cluster_id'] = cluster_id
             continue
 
         nodes['kube-node']['hosts'].append(node_name)

@@ -52,12 +52,21 @@
       dest: "{{ custom_inventory }}"
     when: "{{ kargo_inventory|default('nodes_to_inv.py') != 'nodes_to_inv.py' }}"
 
+  - name: Wait for nodes
+    shell: "ansible all -m ping -i $INVENTORY"
+    args:
+      chdir: "/root/mcp"
+    environment:
+      INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
+    when: "{{ deploy_k8s|default(false) | bool }}"
+    retries: 12
+    delay: 5
+
   - name: Deploy k8s
     shell: "{{ item }}"
     args:
       chdir: "/root/mcp"
     with_items:
-    - "ansible all -m ping -i $INVENTORY"
     - "{{ deploy_k8s_cmd }}"
     environment:
       CUSTOM_YAML: "{{ custom_yaml | default('') }}"
