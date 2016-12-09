@@ -7,7 +7,6 @@
 - hosts: master
 
   environment:
-    INVENTORY: "/root/mcp/nodes_to_inv.py"
     K8S_NODES_FILE: "/root/mcp/nodes"
     KARGO_REPO: "{{ kargo_repo | default('') }}"
     KARGO_COMMIT: "{{ kargo_commit | default('') }}"
@@ -19,6 +18,11 @@
     set_fact:
       custom_yaml: "/tmp/kargo_custom.yaml"
     when: "{{ deploy_k8s|default(false) | bool }} and {{ kargo_custom_yaml|default('') != '' }}"
+
+  - name: Set custom inventory fact
+    set_fact:
+       custom_inventory: "/root/kargo/inventory/inventory.cfg"
+    when: "{{ deploy_k8s|default(false) | bool }} and {{ kargo_inventory|default('nodes_to_inv.py') != 'nodes_to_inv.py' }}"
 
   - name: Provision master
     shell: "/vagrant/vagrant-scripts/provision-master.sh"
@@ -42,6 +46,12 @@
       dest: "{{ custom_yaml }}"
     when: "{{ custom_yaml|default('') != '' }}"
 
+  - name: Upload custom inventory
+    synchronize:
+      src: "{{ kargo_inventory }}"
+      dest: "{{ custom_inventory }}"
+    when: "{{ kargo_inventory|default('nodes_to_inv.py') != 'nodes_to_inv.py' }}"
+
   - name: Deploy k8s
     shell: "{{ item }}"
     args:
@@ -50,7 +60,8 @@
     - "ansible all -m ping -i $INVENTORY"
     - "{{ deploy_k8s_cmd }}"
     environment:
-      CUSTOM_YAML: "{{ custom_yaml|default('') }}"
+      CUSTOM_YAML: "{{ custom_yaml | default('') }}"
+      INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
       ANSIBLE_LOG_PATH: "/var/log/kargo.log"
     when: "{{ deploy_k8s|default(false) | bool }}"
 
@@ -60,4 +71,6 @@
       chdir: "/root/mcp"
     with_items:
     - "ansible-playbook -i $INVENTORY playbooks/tests.yaml -e @ccp.yaml"
+    environment:
+      INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
     when: "{{ deploy_k8s|default(false) | bool }}"

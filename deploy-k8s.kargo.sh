@@ -4,7 +4,7 @@ set -xe
 
 CUSTOM_YAML="${CUSTOM_YAML:-custom.yaml}"
 
-INVENTORY="nodes_to_inv.py"
+INVENTORY="${INVENTORY:-nodes_to_inv.py}"
 
 echo "Installing requirements on nodes..."
 ansible-playbook -i $INVENTORY playbooks/bootstrap-nodes.yaml
