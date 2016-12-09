@@ -43,9 +43,10 @@ def nodes_to_hash(nodes_list, masters, calico_rrs, group_vars):
               'hostvars': {}
           }
     }
-    i = 1
+    i = 0
 
     for node_ip in nodes_list:
+        i += 1
         node_name = "node%s" % i
         nodes['all']['hosts'].append(node_name)
         nodes['_meta']['hostvars'][node_name] = {
@@ -62,7 +63,6 @@ def nodes_to_hash(nodes_list, masters, calico_rrs, group_vars):
             nodes['kube-master']['hosts'].append(node_name)
         if i <= 3:
             nodes['etcd']['hosts'].append(node_name)
-        i += 1
 
     return nodes
 
