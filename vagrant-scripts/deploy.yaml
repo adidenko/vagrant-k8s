@@ -44,7 +44,7 @@
     synchronize:
       src: "{{ kargo_custom_yaml }}"
       dest: "{{ custom_yaml }}"
-    when: "{{ custom_yaml|default('') != '' }}"
+    when: "{{ kargo_custom_yaml|default('') != '' }}"
 
   - name: Upload custom inventory
     synchronize:
