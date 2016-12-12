@@ -37,3 +37,6 @@ nameservers:
 
 #Download once, then push to nodes in batches, if enabled
 download_run_once: false
+
+# Deploy netchecker
+deploy_netchecker: true
