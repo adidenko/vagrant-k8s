@@ -30,7 +30,7 @@
       shell: "kubectl get pods | grep '^netchecker-agent-.*Running'"
       run_once: true
       register: nca_pod
-      until: "{{ nca_pod.stdout_lines|length }} >= {{ groups['all']|length * 2 }}"
+      until: "{{ nca_pod.stdout_lines|length }} >= {{ groups['kube-node']|length * 2 }}"
       retries: 120
       delay: 10
 
@@ -45,7 +45,7 @@
 
     - name: Give some time to netchecker agents to report
       pause: seconds=130
-      when: "{{ (agents.content|from_json|length) }} < {{ groups['all']|length * 2 }}"
+      when: "{{ (agents.content|from_json|length) }} < {{ groups['kube-node']|length * 2 }}"
 
     - name: Check netchecker status
       uri: url=http://localhost:31081/api/v1/connectivity_check status_code=200

@@ -80,5 +80,6 @@
     with_items:
     - "ansible-playbook -i $INVENTORY playbooks/tests.yaml -e @ccp.yaml"
     environment:
+      ANSIBLE_LOG_PATH: "/var/log/ansible_tests.log"
       INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
     when: "{{ deploy_k8s|default(false) | bool }}"
