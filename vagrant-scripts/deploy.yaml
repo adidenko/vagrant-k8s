@@ -3,6 +3,10 @@
 
   - name: Provision worker
     shell: "/vagrant/vagrant-scripts/provision-node.sh"
+    register: provision_node
+    until: provision_node.rc == 0
+    retries: 3
+    delay: 5
 
 - hosts: master
 
@@ -54,11 +58,13 @@
 
   - name: Wait for nodes
     shell: "ansible all -m ping -i $INVENTORY"
+    register: ansible_ping
     args:
       chdir: "/root/mcp"
     environment:
       INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
     when: "{{ deploy_k8s|default(false) | bool }}"
+    until: ansible_ping.rc == 0
     retries: 12
     delay: 5
 
