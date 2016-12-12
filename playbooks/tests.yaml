@@ -56,7 +56,7 @@
       run_once: true
 
     - name: Check netchecker status
-      uri: url=http://localhost:31081/api/v1/connectivity_check status_code=200
+      uri: url=http://localhost:31081/api/v1/connectivity_check status_code=200 return_content=yes
       register: result
       run_once: true
       retries: 6
