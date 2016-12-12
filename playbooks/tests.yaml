@@ -39,7 +39,7 @@
       when: get_svc.stdout.find('netchecker-service') == -1
 
     - name: Get netchecker agents
-      uri: url=http://localhost:{{netchecker_port}}/api/v1/agents/ return_content=yes
+      uri: url=http://localhost:31081/api/v1/agents/ return_content=yes
       run_once: true
       delegate_to: "{{groups['kube-node'][0]}}"
       register: agents
