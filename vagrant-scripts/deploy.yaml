@@ -71,7 +71,6 @@
     environment:
       CUSTOM_YAML: "{{ custom_yaml | default('') }}"
       INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
-      ANSIBLE_LOG_PATH: "/var/log/kargo.log"
     when: "{{ deploy_k8s|default(false) | bool }}"
 
   - name: End-to-end k8s tests
