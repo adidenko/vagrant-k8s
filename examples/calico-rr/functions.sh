@@ -97,3 +97,9 @@ function print_hr {
 # Common functions
 # ----------------------------------------------------------------------------
 
+function ping_pods {
+  for pod in `ssh node3 kubectl get pods -o wide | grep -v hostnet | grep -v 03 | grep -v IP | awk '{print $6}'`; do
+    echo
+    run ssh node3 ping -c 3 $pod
+  done
+}
