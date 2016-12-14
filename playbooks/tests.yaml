@@ -45,7 +45,9 @@
       register: agents
       retries: 10
       delay: 30
-      until: "{{ agents.content[0] == '{' and (agents.content|from_json|length >= groups['kube-node']|length * 2) }}"
+      until: "{{ ag.content|length > 0 and
+        agents.content[0] == '{' and
+        agents.content|from_json|length >= groups['kube-node']|length * 2 }}"
       ignore_errors: true
       no_log: true
 
