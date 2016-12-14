@@ -36,13 +36,14 @@ def nodes_to_hash(nodes_list, masters, calico_rrs, group_vars):
           'k8s-cluster': {
               'children': ['kube-node', 'kube-master']
           },
-          'calico-rr': {
-              'hosts': [],
-          },
           '_meta': {
               'hostvars': {}
           }
     }
+
+    if calico_rrs + 0 > 0:
+        nodes['calico-rr'] = { 'hosts': [] }
+
     i = 0
 
     for node_ip in nodes_list:
