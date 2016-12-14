@@ -45,10 +45,9 @@
       register: agents
       retries: 10
       delay: 30
-      until: "{{ agents.content != 'No JSON object could be decoded' and agents.content != '{}' and (agents.content|default('{}'))|from_json|length >= groups['kube-node']|length * 2 }}"
+      until: "{{ agents.content[0] == '{' and (agents.content|from_json|length >= groups['kube-node']|length * 2) }}"
       ignore_errors: true
       no_log: true
-      delegate_to: "{{groups['kube-node'][0]}}"
 
     - debug: var=agents.content|from_json
       failed_when: not agents|success
