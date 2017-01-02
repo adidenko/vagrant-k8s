@@ -89,3 +89,36 @@
       ANSIBLE_LOG_PATH: "/var/log/ansible_tests.log"
       INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
     when: "{{ deploy_k8s|default(false) | bool }}"
+
+  - name: Run some extra customizations
+    shell: "ansible-playbook -i $INVENTORY playbooks/design.yaml -e @ccp.yaml"
+    args:
+      chdir: "/root/mcp"
+    environment:
+      ANSIBLE_LOG_PATH: "/var/log/ansible_design.log"
+      INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
+    when: "{{ deploy_ccp|default(false) | bool }}"
+
+  - name: Clone CCP installer
+    git:
+      repo: "https://github.com/adidenko/fuel-ccp-ansible"
+      dest: "/root/mcp/fuel-ccp-ansible"
+    when: "{{ deploy_ccp|default(false) | bool }}"
+
+  - name: Build OpenStack CCP
+    shell: "ansible-playbook -i $INVENTORY fuel-ccp-ansible/build.yaml -e @ccp.yaml"
+    args:
+      chdir: "/root/mcp"
+    environment:
+      ANSIBLE_LOG_PATH: "/var/log/ansible_ccp_build.log"
+      INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
+    when: "{{ deploy_ccp|default(false) | bool }}"
+
+  - name: Deploy OpenStack CCP
+    shell: "ansible-playbook -i $INVENTORY fuel-ccp-ansible/deploy.yaml -e @ccp.yaml"
+    args:
+      chdir: "/root/mcp"
+    environment:
+      ANSIBLE_LOG_PATH: "/var/log/ansible_ccp_deploy.log"
+      INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
+    when: "{{ deploy_ccp|default(false) | bool }}"

@@ -51,6 +51,7 @@ ansible_extra_vars = {
   kargo_repo: ENV["KARGO_REPO"] || "",
   kargo_inventory: ENV["KARGO_INVENTORY"] || "nodes_to_inv.py",
   kargo_commit: ENV["KARGO_COMMIT"] || "",
+  deploy_ccp: ENV["VAGRANT_DEPLOY_CCP"] || "false",
   deploy_k8s: ENV["VAGRANT_DEPLOY_K8"] || "false",
   deploy_k8s_cmd: ENV["VAGRANT_DEPLOY_K8_CMD"] || "./deploy-k8s.kargo.sh"
 }
