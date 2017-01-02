@@ -20,7 +20,7 @@ ansible all -m ping -i $INVENTORY
 
 sed -e "/^kube_network_plugin:/d" -i custom.yaml
 cat << EOF >> custom.yaml
-kube_network_plugin: canal
+kube_network_plugin: "canal"
 canal_iface: "eth2"
 EOF
 
