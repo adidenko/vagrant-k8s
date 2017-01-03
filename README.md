@@ -167,6 +167,7 @@ Just run this:
 ```bash
 export VAGRANT_ANSIBLE=true
 export VAGRANT_DEPLOY_K8=true
+export VAGRANT_DEPLOY_CCP=true
 vagrant up
 ```
 
@@ -177,6 +178,7 @@ export KARGO_REPO="https://github.com/adidenko/kargo"
 export KARGO_COMMIT="update-calico-unit"
 export VAGRANT_DEPLOY_K8_CMD="./deploy-k8s.kargo.sh"
 export KARGO_CUSTOM_YAML="$(pwd)/my-custom.yaml"
+export KARGO_INVENTORY="$(pwd)/my-inventory.cfg"
 ```
 
 ## Working with kubernetes
