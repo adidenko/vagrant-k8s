@@ -177,9 +177,14 @@ Additional environment variables for customization:
 export KARGO_REPO="https://github.com/adidenko/kargo"
 export KARGO_COMMIT="update-calico-unit"
 export VAGRANT_DEPLOY_K8_CMD="./deploy-k8s.kargo.sh"
+# Custom yaml for Kargo
 export KARGO_CUSTOM_YAML="$(pwd)/my-custom.yaml"
+# Custom Kargo inventory
 export KARGO_INVENTORY="$(pwd)/my-inventory.cfg"
+# If you want to test calico route reflectors
+export CALICO_RRS=1
 ```
+
 
 ## Working with kubernetes
 
