@@ -1,0 +1,7 @@
+- hosts: localhost
+
+  tasks:
+  - name: Write CCP nodes and roles mapping file
+    template:
+      src: "ccp_nodes.j2"
+      dest: "/root/mcp/ccp_nodes.yaml"
