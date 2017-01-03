@@ -1,7 +1,9 @@
-- hosts: localhost
+- hosts: kube-node
 
   tasks:
   - name: Write CCP nodes and roles mapping file
+    run_once: true
+    delegate_to: localhost
     template:
       src: "ccp_nodes.j2"
       dest: "/root/mcp/ccp_nodes.yaml"
