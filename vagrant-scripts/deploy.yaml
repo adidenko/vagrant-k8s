@@ -114,8 +114,14 @@
       INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
     when: "{{ deploy_ccp|default(false) | bool }}"
 
+  - name: Write CCP nodes and roles mapping file
+    template:
+      src: "ccp_nodes.j2"
+      dest: "/root/mcp/ccp_nodes.yaml"
+    when: "{{ deploy_ccp|default(false) | bool }}"
+
   - name: Deploy OpenStack CCP
-    shell: "ansible-playbook -i $INVENTORY fuel-ccp-ansible/deploy.yaml -e @ccp.yaml"
+    shell: "ansible-playbook -i $INVENTORY fuel-ccp-ansible/deploy.yaml -e @ccp.yaml -e @ccp_nodes.yaml"
     args:
       chdir: "/root/mcp"
     environment:

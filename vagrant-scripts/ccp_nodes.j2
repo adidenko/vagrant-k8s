@@ -1,0 +1,7 @@
+ccp_nodes:
+  - name: "{{ hostvars[groups['kube-node'][0]]['ansible_hostname'] }}"
+    role: controller
+{% for node in groups['kube-node'][1:-1] %}
+  - name: "{{ hostvars[node]['ansible_hostname'] }}"
+    role: compute
+{% endfor %}
