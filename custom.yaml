@@ -3,6 +3,7 @@ docker_version: 1.12
 
 # Switch network to calico
 kube_network_plugin: "calico"
+calico_version: "v1.0.0"
 
 # Kube-proxy should be iptables for calico
 kube_proxy_mode: "iptables"
@@ -17,9 +18,9 @@ upstream_dns_servers:
   - /mirantis.net/172.18.32.6
 
 #Override hyperkube image
-kube_version: "v1.4.6"
+kube_version: "v1.5.1"
 hyperkube_image_repo: "quay.io/coreos/hyperkube"
-hyperkube_image_tag: "v1.4.6_coreos.0"
+hyperkube_image_tag: "v1.5.1_coreos.0"
 etcd_version: "v3.0.12"
 
 #Required for hyperkube >=1.3.4. Set to false if installing old hyperkube
