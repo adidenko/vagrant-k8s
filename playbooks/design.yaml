@@ -19,7 +19,7 @@
           {% set idx = 1 %}
           {% for item in groups['etcd'] -%}
             etcd{{ idx }}=https://{{ item }}:2380{% if not loop.last %},{% endif %}
-            {% idx = idx + 1 %}
+            {% set idx = idx + 1 %}
           {%- endfor %}
 
     - name: sync files
