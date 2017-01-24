@@ -18,7 +18,7 @@
         etcd_initial_cluster: |-
           {% set idx = 1 %}
           {% for item in groups['etcd'] -%}
-            etcd{{ idx }}=https://{{ item }}:2380{% if not loop.last %},{% endif %}
+            etcd{{ idx }}=https://{{ hostvars[item]['ip'] }}:2380{% if not loop.last %},{% endif %}
             {% set idx = idx + 1 %}
           {%- endfor %}
 
