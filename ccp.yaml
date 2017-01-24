@@ -18,4 +18,4 @@ ccp_redeploy: true
 # See img/k8s-ccp-calico-02.png
 calico_services:
   - calico-dhcp-agent
-ccp_calico_etcd_host: "etcd-calico"
+ccp_calico_etcd_host: "etcd-calico.default"

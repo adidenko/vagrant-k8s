@@ -14,6 +14,14 @@
             https://{{ item }}:2379{% if not loop.last %},{% endif %}
           {%- endfor %}
 
+    - set_fact:
+        etcd_initial_cluster: |-
+          {% set idx = 1 %}
+          {% for item in groups['etcd'] -%}
+            etcd{{ idx }}=https://{{ item }}:2380{% if not loop.last %},{% endif %}
+            {% idx = idx + 1 %}
+          {%- endfor %}
+
     - name: sync files
       template: src=./etcd-calico-svc.j2 dest=/var/tmp/etcd-calico-svc.yaml
       run_once: true

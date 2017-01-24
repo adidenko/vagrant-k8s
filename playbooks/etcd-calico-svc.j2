@@ -1,26 +1,52 @@
-kind: "Endpoints"
-apiVersion: "v1"
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
-  name: "etcd-calico"
-subsets:
-  - addresses:
-{% for host in groups['etcd'] %}
-    - ip: "{{ hostvars[host]['ip'] }}"
-{% endfor %}
-    ports:
-      - port: 2379
-        name: "etcd-calico"
----
-apiVersion: "v1"
-kind: "Service"
-metadata:
-  name: "etcd-calico"
+  labels:
+    app: etcd-k8s-proxy
+  name: etcd-k8s-proxy
 spec:
+  replicas: 2
+  template:
+    metadata:
+      name: etcd-k8s-proxy
+      labels:
+        app: etcd-k8s-proxy
+    spec:
+      volumes:
+        - name: calico-certs
+          hostPath:
+            path: "/etc/calico/certs"
+      containers:
+        - name: etcd-k8s-proxy
+          image: quay.io/coreos/etcd:v3.0.12
+          env:
+            - name: ETCD_INITIAL_CLUSTER
+              value: "{{ etcd_initial_cluster }}"
+            - name: ETCD_PROXY
+              value: "on"
+            - name: ETCD_PEER_CLIENT_CERT_AUTH
+              value: "true"
+            - name: ETCD_PEER_TRUSTED_CA_FILE
+              value: "/etc/calico/certs/ca_cert.crt"
+            - name: ETCD_PEER_CERT_FILE
+              value: "/etc/calico/certs/cert.crt"
+            - name: ETCD_PEER_KEY_FILE
+              value: "/etc/calico/certs/key.pem"
+            - name: ETCD_LISTEN_CLIENT_URLS
+              value: "http://0.0.0.0:2379"
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: "/etc/calico/certs"
+              name: calico-certs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: etcd-calico
+spec:
+  selector:
+    app: etcd-k8s-proxy
   ports:
-  - name: "etcd-calico"
-    port: 2379
-    protocol: TCP
-  sessionAffinity: None
-  type: NodePort
-status:
-  loadBalancer: {}
+    - protocol: TCP
+      port: 2379
+      targetPort: 2379
