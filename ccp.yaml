@@ -19,3 +19,8 @@ ccp_redeploy: true
 calico_services:
   - calico-dhcp-agent
 ccp_calico_etcd_host: "etcd-calico.default"
+
+# apply fix for https://bugs.launchpad.net/nova/+bug/1649527
+ccp_gerrit_reviews:
+  - repo: "fuel-ccp-nova"
+    refspec: "refs/changes/92/425192/1"
