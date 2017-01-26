@@ -212,7 +212,7 @@ kubectl --namespace=ccp exec $POD_NAME -- cat /etc/resolv.conf
 kubectl --namespace=ccp exec $POD_NAME -- curl http://etcd-client:2379/health
 
 # Run a container
-docker run -t -i 127.0.0.1:31500/mcp/neutron-dhcp-agent /bin/bash
+docker run -t -i 127.0.0.1:31500/ccp/neutron-dhcp-agent /bin/bash
 ```
 
 * Network checker
@@ -228,7 +228,7 @@ cd ~/mcp
 
 ```bash
 # Run a bash in one of containers
-docker run -t -i 127.0.0.1:31500/mcp/nova-base /bin/bash
+docker run -t -i 127.0.0.1:31500/ccp/nova-base /bin/bash
 
 # Inside container export credentials
 export OS_USERNAME=admin
