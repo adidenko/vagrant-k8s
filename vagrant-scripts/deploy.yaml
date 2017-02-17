@@ -90,6 +90,15 @@
       INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
     when: "{{ deploy_k8s|default(false) | bool }}"
 
+  - name: Deploy prometheus
+    shell: "ansible-playbook -i $INVENTORY playbooks/prometheus.yaml -e @ccp.yaml"
+    args:
+      chdir: "/root/mcp"
+    environment:
+      ANSIBLE_LOG_PATH: "/var/log/ansible_prometheus.log"
+      INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
+    when: "{{ deploy_prometheus|default(false) | bool }}"
+
   - name: Run some extra customizations
     shell: "ansible-playbook -i $INVENTORY playbooks/design.yaml -e @ccp.yaml"
     args:

@@ -183,8 +183,9 @@ export KARGO_CUSTOM_YAML="$(pwd)/my-custom.yaml"
 export KARGO_INVENTORY="$(pwd)/my-inventory.cfg"
 # If you want to test calico route reflectors
 export CALICO_RRS=1
+# Deploy prometheus monitoring
+export VAGRANT_DEPLOY_PROMETHEUS="true"
 ```
-
 
 ## Working with kubernetes
 
