@@ -11,6 +11,11 @@
       register: get_svc
       run_once: true
 
+    - name: Get ns
+      shell: kubectl get ns
+      register: get_ns
+      run_once: true
+
     - name: Upload configs
       template: src=./{{ item }}.j2 dest=/var/tmp/{{ item }}
       run_once: true
@@ -18,6 +23,11 @@
         - "prometheus-configmap.yaml"
         - "prometheus-deployment.yaml"
       when: get_svc.stdout.find('prometheus') == -1
+
+    - name: Create namespace
+      shell: kubectl create namespace {{ prom_ns }}
+      run_once: true
+      when: get_ns.stdout.find({{ prom_ns }}) == -1
 
     - name: Deploy prometheus
       shell: kubectl --namespace={{ prom_ns }} create -f /var/tmp/{{ item }}
