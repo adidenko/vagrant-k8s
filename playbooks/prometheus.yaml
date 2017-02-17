@@ -27,7 +27,7 @@
     - name: Create namespace
       shell: kubectl create namespace {{ prom_ns }}
       run_once: true
-      when: get_ns.stdout.find({{ prom_ns }}) == -1
+      when: get_ns.stdout.find('{{ prom_ns }}') == -1
 
     - name: Deploy prometheus
       shell: kubectl --namespace={{ prom_ns }} create -f /var/tmp/{{ item }}
