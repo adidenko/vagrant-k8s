@@ -1,0 +1,28 @@
+- hosts: kube-master
+
+  vars:
+    prom_ns: "monitoring"
+    prom_image: "prom/prometheus:v1.5.2"
+
+  tasks:
+
+    - name: Get svc
+      shell: kubectl --namespace={{ prom_ns }} get svc
+      register: get_svc
+      run_once: true
+
+    - name: Upload configs
+      template: src=./{{ item }}.j2 dest=/var/tmp/{{ item }}
+      run_once: true
+      with_items:
+        - "prometheus-configmap.yaml"
+        - "prometheus-deployment.yaml"
+      when: get_svc.stdout.find('prometheus') == -1
+
+    - name: Deploy prometheus
+      shell: kubectl --namespace={{ prom_ns }} create -f /var/tmp/{{ item }}
+      run_once: true
+      with_items:
+        - "prometheus-configmap.yaml"
+        - "prometheus-deployment.yaml"
+      when: get_svc.stdout.find('prometheus') == -1
