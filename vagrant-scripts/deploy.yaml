@@ -140,16 +140,3 @@
       ANSIBLE_LOG_PATH: "/var/log/ansible_ccp_deploy.log"
       INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
     when: "{{ deploy_ccp|default(false) | bool }}"
-
-- hosts: worker
-  tasks:
-
-  - name: Enable prometheus metrics in Calico
-    run_once: true
-    shell: "{{ item }}"
-    environment:
-      ETCDCTL_ENDPOINT: "https://localhost:2379"
-    with_items:
-      - "etcdctl set /calico/v1/config/PrometheusMetricsEnabled true"
-      - "etcdctl set /calico/v1/config/PrometheusMetricsPort 9091"
-    when: "{{ deploy_prometheus|default(false) | bool }}"
