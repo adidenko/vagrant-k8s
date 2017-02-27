@@ -13,7 +13,7 @@ def read_nodes_from_file(filename):
     content = [x.strip('\n') for x in f.readlines()]
     return content
 
-def read_vars_from_file(src="/root/kargo/inventory/group_vars/k8s-cluster.yml"):
+def read_vars_from_file(src="/root/kargo/inventory/group_vars/all.yml"):
     with open(src, 'r') as f:
         content = yaml.load(f)
     return content
@@ -108,7 +108,7 @@ def main():
     if os.environ.get('KARGO_GROUP_VARS'):
         vars_file = os.environ['KARGO_GROUP_VARS']
     else:
-        vars_file = "/root/kargo/inventory/group_vars/all.yml"
+        vars_file = "/root/kargo/inventory/group_vars/k8s-cluster.yml"
 
     nodes_list = read_nodes_from_file(nodes_file)
 
