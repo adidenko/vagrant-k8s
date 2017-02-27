@@ -18,7 +18,7 @@ def read_vars_from_file(src="/root/kargo/inventory/group_vars/all.yml"):
         content = yaml.load(f)
     return content
 
-def nodes_to_hash(nodes_list, masters, calico_rrs, group_vars):
+def nodes_to_hash(nodes_list, masters, calico_rrs, vaults, group_vars):
     nodes = {
           'all': {
               'hosts': [],
@@ -44,6 +44,9 @@ def nodes_to_hash(nodes_list, masters, calico_rrs, group_vars):
     if calico_rrs + 0 > 0:
         nodes['calico-rr'] = { 'hosts': [] }
 
+    if vaults + 0 > 0:
+        nodes['vault'] = { 'hosts': [] }
+
     i = 0
 
     for node_ip in nodes_list:
@@ -63,6 +66,9 @@ def nodes_to_hash(nodes_list, masters, calico_rrs, group_vars):
         if i <= calico_rrs:
             nodes['calico-rr']['hosts'].append(node_name)
             continue
+
+        if i <= vaults:
+            nodes['vault']['hosts'].append(node_name)
 
         nodes['kube-node']['hosts'].append(node_name)
         if i <= masters + calico_rrs:
@@ -89,6 +95,11 @@ def main():
     else:
         calico_rrs = 0
 
+    if os.environ.get('VAULTS'):
+        vaults = int(os.environ['VAULTS'])
+    else:
+        vaults = 0
+
     if os.environ.get('K8S_MASTERS'):
         masters = int(os.environ['K8S_MASTERS'])
     else:
@@ -105,7 +116,7 @@ def main():
         print "Error: requires at least 3 nodes"
         return
 
-    nodes = nodes_to_hash(nodes_list, masters, calico_rrs, read_vars_from_file(vars_file))
+    nodes = nodes_to_hash(nodes_list, masters, calico_rrs, vaults, read_vars_from_file(vars_file))
 
     if args.host:
         print json.dumps(nodes['_meta']['hostvars'][args.host])

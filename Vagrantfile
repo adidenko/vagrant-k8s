@@ -47,6 +47,7 @@ ansible_groups = {
 ansible_host_vars = {}
 ansible_extra_vars = {
   calico_rrs: ENV["CALICO_RRS"] || "",
+  vaults: ENV["KARGO_VAULTS"] || "",
   kargo_custom_yaml: ENV["KARGO_CUSTOM_YAML"] || "",
   kargo_repo: ENV["KARGO_REPO"] || "",
   kargo_inventory: ENV["KARGO_INVENTORY"] || "nodes_to_inv.py",
