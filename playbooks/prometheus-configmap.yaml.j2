@@ -193,3 +193,21 @@ data:
       - source_labels: [__meta_kubernetes_pod_name]
         action: replace
         target_label: kubernetes_pod_name
+
+    # Scrape config for Calico Felix
+    - job_name: felix
+      static_configs:
+        - targets:
+{% for node in groups['kube-master'] %}
+          - "{{ hostvars[node]['ip'] }}:9091"
+{% endfor %}
+          labels:
+            node_type: k8s_master
+        - targets:
+{% for node in groups['kube-node'] %}
+{% if node not in groups['kube-master'] %}
+          - "{{ hostvars[node]['ip'] }}:9091"
+{% endif %}
+{% endfor %}
+          labels:
+            node_type: k8s_node
