@@ -22,12 +22,12 @@
   - name: Set custom yaml fact
     set_fact:
       custom_yaml: "/tmp/kargo_custom.yaml"
-    when: "{{ deploy_k8s|default(false) | bool }} and {{ kargo_custom_yaml|default('') != '' }}"
+    when: "{{ kargo_custom_yaml|default('') != '' }}"
 
   - name: Set custom inventory fact
     set_fact:
        custom_inventory: "/root/kargo/inventory/inventory.cfg"
-    when: "{{ deploy_k8s|default(false) | bool }} and {{ kargo_inventory|default('nodes_to_inv.py') != 'nodes_to_inv.py' }}"
+    when: "{{ kargo_inventory|default('nodes_to_inv.py') != 'nodes_to_inv.py' }}"
 
   - name: Provision master
     shell: "/vagrant/vagrant-scripts/provision-master.sh"
