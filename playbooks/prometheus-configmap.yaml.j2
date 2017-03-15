@@ -201,6 +201,7 @@ data:
         target_label: kubernetes_pod_name
 
     # Gather info from node exporters
+    # NOTE: disabled because we autodiscover it via kubernetes-pods job
     #- job_name: node-exporter
     #  static_configs:
     #  - targets:
@@ -225,6 +226,7 @@ data:
 {% endfor %}
         labels:
           node_type: k8s_node
+
     # Scrape config for Etcd
     - job_name: etcd
       scheme: https
@@ -236,4 +238,20 @@ data:
       - targets:
 {% for node in groups['etcd'] %}
         - "{{ hostvars[node]['ip'] }}:2379"
+{% endfor %}
+
+    # Scrape config for k8s scheduler
+    - job_name: kube-scheduler
+      static_configs:
+      - targets:
+{% for node in groups['kube-master'] %}
+        - "{{ hostvars[node]['ip'] }}:10251"
+{% endfor %}
+
+    # Scrape config for k8s controller-manager
+    - job_name: kube-controller-manager
+      static_configs:
+      - targets:
+{% for node in groups['kube-master'] %}
+        - "{{ hostvars[node]['ip'] }}:10252"
 {% endfor %}
