@@ -217,3 +217,15 @@ data:
 {% endfor %}
           labels:
             node_type: k8s_node
+    # Scrape config for Etcd
+    - job_name: etcd
+      scheme: https
+      tls_config:
+        ca_file: /etc/ssl/etcd/ssl/ca.pem
+        cert_file: /etc/ssl/etcd/ssl/node-node1.pem
+        key_file: /etc/ssl/etcd/ssl/node-node1-key.pem
+      static_configs:
+      - targets:
+{% for node in groups['etcd'] %}
+        - "{{ hostvars[node]['ip'] }}:2379"
+{% endfor %}

@@ -49,6 +49,9 @@ spec:
         - name: kube-config-volume
           mountPath: /etc/kubernetes
           readOnly: true
+        - name: etcd-ssl
+          mountPath: /etc/ssl/etcd/ssl
+          readOnly: true
       volumes:
       - name: config-volume
         configMap:
@@ -59,3 +62,6 @@ spec:
       - name: kube-config-volume
         hostPath:
           path: /etc/kubernetes
+      - name: etcd-ssl
+        hostPath:
+          path: /etc/ssl/etcd/ssl
