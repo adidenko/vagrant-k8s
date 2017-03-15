@@ -515,6 +515,5 @@ data:
         summary = "Kubelet is close to pod limit",
         description = "Kubelet {{$labels.instance}} is running {{$value}} pods, close to the limit of 110",
       }
-
   calico.rules: |+
     ### TODO ###

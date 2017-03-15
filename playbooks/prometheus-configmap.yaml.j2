@@ -27,7 +27,7 @@ data:
     # default named port `https`. This works for single API server deployments as
     # well as HA API server deployments.
     scrape_configs:
-    - job_name: 'kubernetes-apiservers'
+    - job_name: 'kubernetes'
 
       kubernetes_sd_configs:
       - role: endpoints
@@ -61,7 +61,7 @@ data:
         action: keep
         regex: default;kubernetes;https
 
-    - job_name: 'kubernetes-nodes'
+    - job_name: 'kubelet'
 
       # Default to scraping over https. If required, just disable this or change to
       # `http`.
@@ -186,11 +186,11 @@ data:
         action: replace
         target_label: __metrics_path__
         regex: (.+)
-      - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
-        action: replace
-        regex: (.+)(?::\d+)?;(\d+)
-        replacement: $1:$2
-        target_label: __address__
+     # - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+     #   action: replace
+     #   regex: (.+)(?::\d+)?;(\d+)
+     #   replacement: $1:$2
+     #   target_label: __address__
       - action: labelmap
         regex: __meta_kubernetes_pod_label_(.+)
       - source_labels: [__meta_kubernetes_namespace]
@@ -200,23 +200,31 @@ data:
         action: replace
         target_label: kubernetes_pod_name
 
+    # Gather info from node exporters
+    #- job_name: node-exporter
+    #  static_configs:
+    #  - targets:
+{% for node in groups['k8s-cluster'] %}
+    #    - "{{ hostvars[node]['ip'] }}:9100"
+{% endfor %}
+
     # Scrape config for Calico Felix
     - job_name: felix
       static_configs:
-        - targets:
+      - targets:
 {% for node in groups['kube-master'] %}
-          - "{{ hostvars[node]['ip'] }}:9091"
+        - "{{ hostvars[node]['ip'] }}:9091"
 {% endfor %}
-          labels:
-            node_type: k8s_master
-        - targets:
+        labels:
+          node_type: k8s_master
+      - targets:
 {% for node in groups['kube-node'] %}
 {% if node not in groups['kube-master'] %}
-          - "{{ hostvars[node]['ip'] }}:9091"
+        - "{{ hostvars[node]['ip'] }}:9091"
 {% endif %}
 {% endfor %}
-          labels:
-            node_type: k8s_node
+        labels:
+          node_type: k8s_node
     # Scrape config for Etcd
     - job_name: etcd
       scheme: https

@@ -2,7 +2,10 @@
 
   vars:
     prom_ns: "monitoring"
+    # https://hub.docker.com/r/prom/prometheus/tags/
     prom_image: "prom/prometheus:v1.5.2"
+    # https://hub.docker.com/r/prom/node-exporter/tags/
+    prom_node_exported_image: "prom/node-exporter:v0.14.0-rc.2"
 
   tasks:
 
