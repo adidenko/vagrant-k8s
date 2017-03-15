@@ -21,6 +21,7 @@
       run_once: true
       with_items:
         - "prometheus-configmap.yaml"
+        - "prometheus-rules.yaml"
         - "prometheus-deployment.yaml"
       when: get_svc.stdout.find('prometheus') == -1
 
@@ -34,5 +35,6 @@
       run_once: true
       with_items:
         - "prometheus-configmap.yaml"
+        - "prometheus-rules.yaml"
         - "prometheus-deployment.yaml"
       when: get_svc.stdout.find('prometheus') == -1

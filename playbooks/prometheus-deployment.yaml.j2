@@ -44,6 +44,8 @@ spec:
         volumeMounts:
         - name: config-volume
           mountPath: /etc/prometheus
+        - name: rules-volume
+          mountPath: /etc/prometheus-rules
         - name: kube-config-volume
           mountPath: /etc/kubernetes
           readOnly: true
@@ -51,6 +53,9 @@ spec:
       - name: config-volume
         configMap:
           name: prometheus
+      - name: rules-volume
+        configMap:
+          name: prometheus-rules
       - name: kube-config-volume
         hostPath:
           path: /etc/kubernetes

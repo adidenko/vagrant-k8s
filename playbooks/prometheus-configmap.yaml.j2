@@ -6,6 +6,11 @@ data:
   prometheus.yml: |-
     global:
       scrape_interval: 15s
+
+    # Rule files
+    rule_files:
+    - /etc/prometheus-rules/*.rules
+
     # A scrape configuration for running Prometheus on a Kubernetes cluster.
     # This uses separate scrape configs for cluster components (i.e. API server, node)
     # and services to allow each to use different authentication configs.
