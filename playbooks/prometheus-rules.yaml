@@ -547,11 +547,6 @@ data:
     # STATUS:
     # felix_cluster_num_hosts
     #
-    # ERRORS:
-    #  felix_int_dataplane_failures
-    #  felix_ipset_errors
-    #  felix_iptables_save_errors
-    #  felix_iptables_restore_errors
 
     ALERT FelixDown
       IF absent(up{job="felix"}) OR up{job="felix"} == 0
@@ -588,4 +583,72 @@ data:
       ANNOTATIONS {
         summary = "No Calico policies defined or metric is not found",
         description = "Node $label.instance does not have any Calico policies which may affect connectivity.",
+      }
+
+    # Alert if there errors for the last hour for:
+    #  felix_int_dataplane_failures
+    #  felix_ipset_errors
+    #  felix_iptables_save_errors
+    #  felix_iptables_restore_errors
+    ALERT FelixNumberOfDataplaneFailures
+      IF absent(felix_int_dataplane_failures) OR
+        increase(felix_int_dataplane_failures[1h]) > 5
+      LABELS {
+        service = "calico",
+        severity = "warning"
+      }
+      ANNOTATIONS {
+        summary = "A high number of dataplane failures within Felix are happening",
+        description = "Felix instance {{ $labels.instance }} has seen {{ $value }} dataplane failures within the last hour",
+      }
+
+    ALERT FelixNumberIpsetErrors
+      IF absent(felix_ipset_errors) OR
+        increase(felix_ipset_errors[1h]) > 5
+      LABELS {
+        service = "calico",
+        severity = "warning"
+      }
+      ANNOTATIONS {
+        summary = "A high number of ipset errors within Felix are happening",
+        description = "Felix instance {{ $labels.instance }} has seen {{ $value }} ipset errors within the last hour",
+      }
+
+    ALERT FelixNumberIptablesSaveErrors
+      IF absent(felix_iptables_save_errors) OR
+        increase(felix_iptables_save_errors[1h]) > 5
+      LABELS {
+        service = "calico",
+        severity = "warning"
+      }
+      ANNOTATIONS {
+        summary = "A high number of iptables save errors within Felix are happening",
+        description = "Felix instance {{ $labels.instance }} has seen {{ $value }} iptables save errors within the last hour",
+      }
+
+    ALERT FelixNumberIptablesRestoreErrors
+      IF absent(felix_iptables_restore_errors) OR
+        increase(felix_iptables_restore_errors[1h]) > 5
+      LABELS {
+        service = "calico",
+        severity = "warning"
+      }
+      ANNOTATIONS {
+        summary = "A high number of iptables restore errors within Felix are happening",
+        description = "Felix instance {{ $labels.instance }} has seen {{ $value }} iptables restore errors within the last hour",
+      }
+
+    # 95th percentile example
+    # alert if the 95th percentile of dataplane apply takes more than 150ms
+    ALERT FelixDataplaneApplySlow
+      IF absent(felix_int_dataplane_apply_time_seconds_bucket) OR
+        histogram_quantile(0.95, rate(felix_int_dataplane_apply_time_seconds_bucket[5m])) > 0.15
+      FOR 10m
+      LABELS {
+        service = "calico",
+        severity = "warning"
+      }
+      ANNOTATIONS {
+        summary = "Slow Felix dataplane apply",
+        description = "On Felix instance {{ $labels.instance }} dataplane apply is slow",
       }
