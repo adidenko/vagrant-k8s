@@ -35,7 +35,7 @@ spec:
       - name: prometheus
         image: {{ prom_image }}
         args:
-          - '-storage.local.retention=6h'
+          - '-storage.local.retention={{ storage_local_retention }}'
           - '-storage.local.memory-chunks=500000'
           - '-config.file=/etc/prometheus/prometheus.yml'
         ports:
