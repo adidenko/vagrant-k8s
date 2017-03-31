@@ -7,7 +7,7 @@
     # https://hub.docker.com/r/prom/node-exporter/tags/
     prom_node_exported_image: "prom/node-exporter:v0.14.0-rc.2"
     # Settings
-    storage_local_retention: "30d"
+    storage_local_retention: "720h"
 
   tasks:
 
