@@ -66,8 +66,8 @@
       INVENTORY: "{{ custom_inventory | default(kargo_inventory) }}"
     when: "{{ deploy_k8s|default(false) | bool }}"
     until: ansible_ping.rc == 0
-    retries: 12
-    delay: 5
+    retries: 30
+    delay: 10
 
   - name: Deploy k8s
     shell: "{{ item }}"
