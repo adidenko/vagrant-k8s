@@ -34,6 +34,7 @@
       template: src=./{{ item }}.j2 dest=/var/tmp/{{ item }}
       run_once: true
       with_items:
+        - "prometheus-node-exporter.yaml"
         - "prometheus-configmap.yaml"
         - "prometheus-deployment.yaml"
       when: get_svc.stdout.find('prometheus') == -1
@@ -47,6 +48,7 @@
       shell: kubectl --namespace={{ prom_ns }} create -f /var/tmp/{{ item }}
       run_once: true
       with_items:
+        - "prometheus-node-exporter.yaml"
         - "prometheus-configmap.yaml"
         - "prometheus-rules.yaml"
         - "prometheus-deployment.yaml"
