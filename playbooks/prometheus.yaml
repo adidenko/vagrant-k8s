@@ -53,3 +53,13 @@
         - "prometheus-rules.yaml"
         - "prometheus-deployment.yaml"
       when: get_svc.stdout.find('prometheus') == -1
+
+    - name: Annotate netchecker pods for prometheus autodiscovery
+      shell: kubectl annotate pods --selector='app==netchecker-server' prometheus.io/scrape=true prometheus.io/port=8081 --overwrite
+      run_once: true
+
+    - name: Enable metrics reporting in Calico
+      shell: etcdctl set /calico/v1/config/PrometheusMetricsEnabled true
+      environment:
+        ETCDCTL_ENDPOINT: "https://localhost:2379"
+      run_once: true
