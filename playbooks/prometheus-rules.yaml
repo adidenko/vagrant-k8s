@@ -519,19 +519,6 @@ data:
         description = "99th percentile Latency for {{ $labels.verb }} requests to the kube-apiserver is higher than 1s.",
       }
 
-    ALERT K8SApiServerEtcdAccessLatency
-      IF absent(etcd_request_latencies_summary{quantile="0.99"}) OR
-        etcd_request_latencies_summary{quantile="0.99"} / 1e6 > 1.0
-      FOR 15m
-      LABELS {
-        service = "k8s",
-        severity = "warning"
-      }
-      ANNOTATIONS {
-        summary = "Access to etcd is slow",
-        description = "99th percentile latency for apiserver to access etcd is higher than 1s.",
-      }
-
     ALERT K8SKubeletTooManyPods
       IF absent(kubelet_running_pod_count) OR kubelet_running_pod_count > 100
       LABELS {
@@ -574,15 +561,15 @@ data:
       }
 
     ALERT FelixNoPolicies
-      IF absent(felix_active_local_policies) OR felix_active_local_policies < 1
+      IF absent(felix_iptables_chains) OR felix_iptables_chains < 1
       FOR 5m
       LABELS {
         service = "calico",
         severity = "warning"
       }
       ANNOTATIONS {
-        summary = "No Calico policies defined or metric is not found",
-        description = "Node $label.instance does not have any Calico policies which may affect connectivity.",
+        summary = "No Calico iptables chains defined or metric is not found",
+        description = "Node $label.instance does not have any Calico iptables chains which may affect connectivity.",
       }
 
     # Alert if there errors for the last hour for:
