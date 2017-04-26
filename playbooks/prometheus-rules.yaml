@@ -651,3 +651,15 @@ data:
         summary = "A high number of errors in Netchecker are happening",
         description = "Netchecker Agent {{ $labels.instance }} has seen {{ $value }} errors within the last hour",
       }
+    # Report interval is 15s, so we should see at least 15 reports per 5m (ideally 20)
+    ALERT NetCheckerReportsMissing
+      IF absent(ncagent_report_count_total) OR
+        increase(ncagent_report_count_total[5m]) < 15
+      LABELS {
+        service = "netchecker",
+        severity = "warning"
+      }
+      ANNOTATIONS {
+        summary = "A low number of reports in Netchecker are happening",
+        description = "Netchecker Agent {{ $labels.instance }} has reported only {{ $value }} times for the last 5 minutes",
+      }
