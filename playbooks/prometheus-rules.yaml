@@ -642,7 +642,7 @@ data:
   netchecker.rules: |+
     ALERT NetCheckerAgentErrors
       IF absent(ncagent_error_count_total) OR
-        increase(ncagent_error_count_total[1h]) > 5
+        increase(ncagent_error_count_total[1h]) > 10
       LABELS {
         service = "netchecker",
         severity = "warning"
