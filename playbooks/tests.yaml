@@ -60,6 +60,7 @@
       uri: url=http://localhost:31081/api/v1/connectivity_check status_code=200 return_content=yes
       register: result
       run_once: true
+      until: "(result | success) and (result.status == 200)"
       retries: 6
       delay: 20
       delegate_to: "{{groups['kube-node'][0]}}"
