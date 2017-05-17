@@ -45,7 +45,7 @@
       when: get_ns.stdout.find('{{ prom_ns }}') == -1
 
     - name: Deploy prometheus
-      shell: kubectl --namespace={{ prom_ns }} create -f /var/tmp/{{ item }}
+      shell: kubectl --namespace={{ prom_ns }} apply -f /var/tmp/{{ item }}
       run_once: true
       with_items:
         - "prometheus-node-exporter.yaml"
