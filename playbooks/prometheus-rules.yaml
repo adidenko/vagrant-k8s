@@ -665,14 +665,14 @@ data:
       }
     ALERT NetCheckerTCPServerDelay
       IF absent(ncagent_http_probe_tcp_connection_time_ms) OR
-        ncagent_http_probe_tcp_connection_time_ms{url="http://netchecker-service:8081/api/v1/ping"} > 100
+        delta(ncagent_http_probe_tcp_connection_time_ms{url="http://netchecker-service:8081/api/v1/ping"}[5m]) > 100
       LABELS {
         service = "netchecker",
         severity = "warning"
       }
       ANNOTATIONS {
         summary = "TCP connection to Netchecker server takes too much time",
-        description = "Netchecker Agent {{ $labels.instance }} TCP connection time to Netchecker server has reached {{ $value }} within the last 15 minutes",
+        description = "Netchecker Agent {{ $labels.instance }} TCP connection time to Netchecker server has increased by {{ $value }} within the last 5 minutes",
       }
     ALERT NetCheckerDNSSlow
       IF absent(ncagent_http_probe_dns_lookup_time_ms) OR
@@ -683,5 +683,5 @@ data:
       }
       ANNOTATIONS {
         summary = "DNS lookup time is too high",
-        description = "DNS lookup time on Netchecker Agent {{ $labels.instance }} has reached {{ $value }} within the last 15 minutes",
+        description = "DNS lookup time on Netchecker Agent {{ $labels.instance }} has increased by {{ $value }} within the last 5 minutes",
       }
